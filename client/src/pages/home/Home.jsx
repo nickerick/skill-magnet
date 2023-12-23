@@ -1,10 +1,12 @@
 import { useState } from 'react';
+
+import { Box, Button } from '@mui/material';
 import reactLogo from '/react.svg';
 import viteLogo from '/vite.svg';
-import './App.css';
-import { Box, Button } from '@mui/material';
 
-function App() {
+import './Home.css';
+
+export default function Home() {
   const [count, setCount] = useState(0);
 
   return (
@@ -40,5 +42,3 @@ function App() {
     </>
   );
 }
-
-export default App;
