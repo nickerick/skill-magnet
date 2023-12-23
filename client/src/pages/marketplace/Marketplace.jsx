@@ -1,4 +1,4 @@
-import CourseCard from '../../components/course-card';
+import CourseCard from '../../components/CourseCard';
 
 export default function Marketplace() {
   return (
