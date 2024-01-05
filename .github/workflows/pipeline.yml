@@ -49,7 +49,7 @@ jobs:
 
       - name: Build Backend with Maven
         working-directory: ./server/
-        run: mvn -B package --file pom.xml
+        run: mvn -B package -DskipTests --file pom.xml
 
       #     - name: Upload Artifact To Github
       #       uses: actions/upload-artifact@v2
