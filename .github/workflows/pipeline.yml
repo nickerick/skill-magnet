@@ -48,7 +48,7 @@ jobs:
           java-version: 21
 
       - name: Build Backend with Maven
-        working-directory: ./backend/CourtUpAPI/
+        working-directory: ./server/
         run: mvn -B package --file pom.xml
 
       #     - name: Upload Artifact To Github
