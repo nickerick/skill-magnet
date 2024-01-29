@@ -1,4 +1,4 @@
-name: SkillMagnet CI/CD Pipeline
+name: SkillMagnet Release CI/CD Pipeline
 
 on:
   push:
@@ -35,14 +35,6 @@ jobs:
           mkdir server/src/main/resources/static
           cp -R ./client/dist/* ./server/src/main/resources/static/
 
-      # - name: Inject Environment Variables
-      #   working-directory: ./backend/CourtUpAPI/src/main/resources/
-      #   run: |
-      #     rm application.properties
-      #     touch application.properties
-
-      #     echo "${{ secrets.COURTUP_APPLICATION_PROPERTIES }}" > application.properties
-
       - name: Install Java 21
         uses: actions/setup-java@v1
         with:
@@ -51,12 +43,6 @@ jobs:
       - name: Build Backend with Maven
         working-directory: ./server/
         run: mvn -B package -DskipTests --file pom.xml
-
-      #     - name: Upload Artifact To Github
-      #       uses: actions/upload-artifact@v2
-      #       with:
-      #         name: courtup-build
-      #         path: ./backend/CourtUpAPI/target/
 
       - name: Upload Artifact to S3
         run: |
