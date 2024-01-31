@@ -1,9 +1,6 @@
 name: SkillMagnet Development Branch Actions
 
 on:
-  push:
-    branches-ignore:
-      - main
   pull_request:
     branches:
       - main
