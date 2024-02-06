@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import CourseCard from '../../components/CourseCard';
 import UserService from '../../services/UserService';
+import S3VideoUpload from '../util/S3VideoUpload';
 
 export default function Marketplace() {
   const [username, setUsername] = useState('');
@@ -20,6 +21,7 @@ export default function Marketplace() {
       <CourseCard />
       <Button onClick={getUser}>Make API call</Button>
       <label>Fetched Username: {username}</label>
+      <S3VideoUpload />
     </div>
   );
 }
