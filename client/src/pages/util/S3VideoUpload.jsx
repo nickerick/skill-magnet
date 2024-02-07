@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import AWS from 'aws-sdk';
+import { GetObjectCommand, S3Client } from 'aws-sdk';
+// import { fromIni } from '@aws-sdk/credential-providers';
+// import { HttpRequest } from '@smithy/protocol-http';
+import { getSignedUrl, S3RequestPresigner } from 'aws-sdk';
 
 const S3_PUBLIC_KEY = import.meta.env.VITE_AWS_S3_PUBLIC_KEY;
 const S3_SECRET_KEY = import.meta.env.VITE_AWS_S3_SECRET_KEY;
@@ -45,11 +49,31 @@ export default function S3VideoUpload() {
       });
   };
 
+  const createPresignedUrlWithClient = () => {
+    var url = myBucket.getSignedUrl('getObject', {
+      Bucket: S3_BUCKET,
+      Key: 'videos/test-video-1.mp4',
+      ResponseContentType: 'video/mp4',
+    });
+
+    console.log(url);
+  };
+
   return (
     <div>
+      <video
+        src={
+          'https://skillmagnet.s3.amazonaws.com/videos/test-video-1.mp4?AWSAccessKeyId=AKIASUOH5PTDZ4XRNFHI&Expires=1707288352&Signature=H9LvrF%2Bvu%2BmcvNPVGsvFbnJ6HeQ%3D&response-content-type=video%2Fmp4'
+        }
+        width="750"
+        height="500"
+        controls
+      ></video>
       <div>Native SDK File Upload Progress is {progress}%</div>
+
       <input type="file" onChange={handleFileInput} />
       <button onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
+      <button onClick={createPresignedUrlWithClient}> URL</button>
     </div>
   );
 }
