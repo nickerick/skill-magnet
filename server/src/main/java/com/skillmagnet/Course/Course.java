@@ -1,6 +1,5 @@
 package com.skillmagnet.Course;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import jakarta.persistence.GeneratedValue;
