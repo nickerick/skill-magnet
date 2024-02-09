@@ -2,9 +2,15 @@ package com.skillmagnet.Course;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "course")
 public class Course {
     @Id
     @GeneratedValue
@@ -13,7 +19,10 @@ public class Course {
     private String title;
     private String description;
     private String category;
+
+    @CreationTimestamp
     private Timestamp createdAt;
+    @CreationTimestamp
     private Timestamp status;
 
     public Course() {}
@@ -22,8 +31,8 @@ public class Course {
         this.title = title;
         this.description = description;
         this.category = category;
-        this.createdAt = createdAt;
-        this.status = status;
+        // this.createdAt = createdAt;
+        // this.status = status;
     }
 
     // Getter and Setter for 'title'
