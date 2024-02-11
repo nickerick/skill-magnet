@@ -1,0 +1,4 @@
+# Use the child gitignores in case you've opened the project from the root directory
+
+/client/.gitignore
+/server/.gitignore
