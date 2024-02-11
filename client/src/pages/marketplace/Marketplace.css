@@ -1,0 +1,10 @@
+.courses-list-container {
+    max-width: 1200px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container */
+}
+
+.courses-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap onto the next row */
+    justify-content: space-between; /* Adjust spacing between items */
+}
