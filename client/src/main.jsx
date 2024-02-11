@@ -7,6 +7,7 @@ import Error from './pages/error/Error.jsx';
 import Shell from './pages/shell/Shell.jsx';
 import Home from './pages/home/Home.jsx';
 import Marketplace from './pages/marketplace/Marketplace.jsx';
+import Example from './pages/example/Example.jsx';
 import theme from './theme';
 import './main.css';
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'marketplace',
         element: <Marketplace />,
+      },
+      {
+        path: 'example',
+        element: <Example />,
       },
     ],
   },

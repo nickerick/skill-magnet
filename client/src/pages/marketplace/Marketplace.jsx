@@ -21,7 +21,6 @@ export default function Marketplace() {
       <CourseCard />
       <Button onClick={getUser}>Make API call</Button>
       <label>Fetched Username: {username}</label>
-      {/* <VideoUploadExample /> */}
     </div>
   );
 }

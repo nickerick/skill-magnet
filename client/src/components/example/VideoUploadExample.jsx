@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import VideoService from '../../services/VideoService';
 
+/**
+ * Example component demonstrating a POC on uploading/streaming videos to/from S3
+ *
+ * Currently component is hardcoded to one specific S3 video, however this should be dynamic once properly implemented
+ */
 export default function VideoUploadExample() {
   const [videoUrl, setVideoUrl] = useState('');
   const [videoUploadStatus, setVideoUploadStatus] = useState('default');
@@ -20,6 +25,10 @@ export default function VideoUploadExample() {
       });
   };
 
+  // This functionality would most likely occur in onLoad().
+  //
+  // The page would load, the server would supply a Lesson object, and you'd grab the videoname from there.
+  // Then pass the videoName into the getVideoUrl() to get a final url that would be thrown into a <video> component.
   const loadVideo = videoName => {
     var videoUrl = VideoService.getVideoUrl(videoName);
     setVideoUrl(videoUrl);
