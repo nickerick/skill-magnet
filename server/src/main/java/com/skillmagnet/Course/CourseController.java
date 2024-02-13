@@ -23,8 +23,8 @@ public class CourseController {
      * @param id - id of course to find
      * @return - course object || NOT_FOUND
      */
-    @GetMapping("/course")
-    public ResponseEntity<Course> getCourse(@RequestParam("id") int id){
+    @GetMapping("/course/{id}")
+    public ResponseEntity<Course> getCourse(@PathVariable("id") int id){
         Course course = courseRepository.findById(id);
 
         if(course == null){
@@ -37,7 +37,7 @@ public class CourseController {
      * 
      * @return - all courses in course table in a list 
      */
-    @GetMapping("/course/all")
+    @GetMapping("/course")
     public ResponseEntity<List<Course>> getAllCourses(){        
         return new ResponseEntity<>(courseRepository.findAll(), HttpStatus.OK);
     }
@@ -68,15 +68,15 @@ public class CourseController {
      * @param id - course to delete id
      * @return OK || NOT_FOUND
      */
-    @DeleteMapping("/course")
-    public ResponseEntity<Course> deleteCourse(@RequestParam("id") int id){
+    @DeleteMapping("/course/{id}")
+    public ResponseEntity<Course> deleteCourse(@PathVariable("id") int id){
         Course course = courseRepository.findById(id);
         if(course == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         
         courseRepository.delete(course);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(course, HttpStatus.OK);
     }
     
     /**
@@ -85,8 +85,8 @@ public class CourseController {
      * @param updatedCourse - body of request, json object
      * @return - updated course || not_found
      */
-    @PutMapping("/course")
-    public ResponseEntity<Course> updateCourse(@RequestParam("id") int id, @RequestBody Course updatedCourse){
+    @PutMapping("/course/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable("id") int id, @RequestBody Course updatedCourse){
         Course existingCourse = courseRepository.findById(id);
         if(existingCourse == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -111,8 +111,8 @@ public class CourseController {
      * @param id
      * @return on success - new course, On failure - NOT_FOUND
      */
-    @PutMapping("/course/view")
-    public ResponseEntity<Course> updateCourseView(@RequestParam("id") int id){
+    @PutMapping("/course/view/{id}")
+    public ResponseEntity<Course> updateCourseView(@PathVariable("id") int id){
         Course course = courseRepository.findById(id);
         if(course == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
