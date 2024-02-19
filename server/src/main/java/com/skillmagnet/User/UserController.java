@@ -13,8 +13,9 @@ public class UserController  {
     UserRepository userRepository;
 
     @PostMapping("/user")
-    public ResponseEntity<User> createUser(@RequestParam("username") String username) {
-        User newUser = new User(username);
+    public ResponseEntity<User> createUser(@RequestParam("username") String username,
+                                           @RequestParam("password") String password) {
+        User newUser = new User(username, password);
 
         userRepository.save(newUser);
 
@@ -32,4 +33,19 @@ public class UserController  {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<String> loginCheck(@RequestParam("username") String username,
+                                              @RequestParam("password") String password) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        if(user.passwordMatch(password)) {
+            return new ResponseEntity<>("Passwords Match!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Passwords do not match!", HttpStatus.OK);
+        }
+    }
 }
