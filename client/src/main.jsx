@@ -10,6 +10,8 @@ import Marketplace from './pages/marketplace/Marketplace.jsx';
 import Example from './pages/example/Example.jsx';
 import theme from './theme';
 import './main.css';
+import CreatorStudio from './pages/creatorstudio/CreatorStudio.jsx';
+import MyCourses from './pages/mycourses/MyCourses.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: 'home',
+        path: '/',
         element: <Home />,
       },
       {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: 'example',
         element: <Example />,
+      },
+      {
+        path: 'creatorstudio',
+        element: <CreatorStudio />,
+      },
+      {
+        path: 'mycourses',
+        element: <MyCourses />,
       },
     ],
   },
