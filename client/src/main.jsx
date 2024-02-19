@@ -12,6 +12,7 @@ import theme from './theme';
 import './main.css';
 import CreatorStudio from './pages/creatorstudio/CreatorStudio.jsx';
 import MyCourses from './pages/mycourses/MyCourses.jsx';
+import CourseViewer from './pages/courseviewer/CourseViewer.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'mycourses',
         element: <MyCourses />,
+      },
+      {
+        path: 'courseviewer',
+        element: <CourseViewer />,
       },
     ],
   },

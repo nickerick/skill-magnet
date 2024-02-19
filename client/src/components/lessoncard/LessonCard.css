@@ -1,0 +1,47 @@
+.lesson-card {
+    display: flex;
+    width: calc(20% - 5px);
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    padding: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-card.clicked {
+    background-color: #cef4fb;
+}
+
+.lesson-image {
+    width: 50%;
+    height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.lesson-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lesson-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.lesson-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    margin-top: 20px;
+}
+
+.lesson-completion-status {
+    font-size: 15px;
+    color: black;
+    margin-bottom: 30px;
+}
