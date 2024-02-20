@@ -1,12 +1,11 @@
 .progress-bar{
     margin: auto;
-    width: 50%;
+    width: 55%;
     height: 35px;
     border-radius: 50px;
     background-color: #cef4fb;
     margin-bottom: 10px;
     margin-top: 50px;
-
 }
 
 .progress-bar-fill{
@@ -15,6 +14,17 @@
     background-color: #181d31;
     transition: width 0.5s ease-out;
 }
+
+.progress-title {
+    font-size: 35px;
+    font-weight: bold;
+    color: #181d31;
+    margin-top: 128px;
+    margin-left: 50px;
+    position: absolute;
+}
+
+
 
 .progress-label{
     margin-top:10px;

@@ -27,12 +27,15 @@ export default function CourseViewer() {
 
   return (
     <div className="course-view">
+      <div className="progress-title">Course Progress</div>
 
       <div className="course-progress">
         <div className="progress-bar">
-          <div className="progress-bar-fill" style={{width: `${progress}%` }}></div>
+          <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
         </div>
         <div className="progress-label">{progress}%</div>
+
+        {/*These buttons are temporary to be able to check progress bar*/}
         <button onClick={handleButtonClick}>temp progress button</button>
         <button onClick={handleButtonReset}>temp reset button</button>
       </div>
@@ -55,6 +58,12 @@ export default function CourseViewer() {
           completionStatus="[% here]"
           isSelected={selectedLesson === 2}
           onSelect={() => handleLessonSelect(2)}
+        />
+        <LessonCard
+          lessonTitle="[Lesson 3 title here]"
+          completionStatus="[% here]"
+          isSelected={selectedLesson === 3}
+          onSelect={() => handleLessonSelect(3)}
         />
       </div>
 
