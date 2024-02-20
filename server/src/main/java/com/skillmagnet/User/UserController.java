@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("api")
 public class UserController  {
@@ -15,11 +17,16 @@ public class UserController  {
     @PostMapping("/user")
     public ResponseEntity<User> createUser(@RequestParam("username") String username,
                                            @RequestParam("password") String password) {
-        User newUser = new User(username, password);
+        // Username taken check
+        if(userRepository.findByUsername(username) == null) {
+            User newUser = new User(username, password);
 
-        userRepository.save(newUser);
+            userRepository.save(newUser);
 
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
+            return new ResponseEntity<>(newUser, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -33,19 +40,20 @@ public class UserController  {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @PutMapping("/login")
     public ResponseEntity<String> loginCheck(@RequestParam("username") String username,
                                               @RequestParam("password") String password) {
         User user = userRepository.findByUsername(username);
-
         if (user == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
         if(user.passwordMatch(password)) {
+            user.setLast_login(LocalDateTime.now());
+            userRepository.save(user);
             return new ResponseEntity<>("Passwords Match!", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Passwords do not match!", HttpStatus.OK);
         }
+
+        return new ResponseEntity<>("Passwords do not match!", HttpStatus.OK);
     }
 }
