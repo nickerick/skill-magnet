@@ -79,7 +79,7 @@ public class UserController  {
 
             return new ResponseEntity<>(newUser, HttpStatus.OK);
         } catch(Exception e) {
-            return new ResponseEntity<>("Failed to Create User", HttpStatus.OK);
+            return new ResponseEntity<>("Failed to Create User", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
