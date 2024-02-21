@@ -19,33 +19,38 @@ public class UserController  {
      * @param username - string containing username
      * @param password - string containing plaintext password
      * @return
-     *          Success - The Created User
-     *          Failure - BAD_REQUEST (Username Taken)
+     *          Success - user object & OK
+     *          Failure - "Duplicate Username" & BAD_REQUEST
+     *          Error - "Failed to Create User" & OK
      */
     @PostMapping("/user/create")
-    public ResponseEntity<User> createUser(@RequestParam("username") String username,
-                                           @RequestParam("password") String password) {
-        // Username taken check
-        if(userRepository.findByUsername(username) == null) {
+    public ResponseEntity<?> createUser(@RequestBody String username,
+                                        @RequestBody String password) {
+        // Duplicate Check
+        if(userRepository.findByUsername(username) != null) {
+            return new ResponseEntity<>("Duplicate Username", HttpStatus.BAD_REQUEST);
+        }
+
+        try {
             User newUser = new User(username, password);
 
             userRepository.save(newUser);
 
-            return new ResponseEntity<>(newUser, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(newUser, HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>("Failed to Create User", HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     /**
      * Retrieve a user by username.
      * @param username - user's unique username string
      * @return
-     *          Success: Requested User
-     *          Failure: NOT_FOUND
+     *          Success: User Object & OK
+     *          Failure: null & NOT_FOUND
      */
     @GetMapping("/user")
-    public ResponseEntity<User> getUser(@RequestParam("username") String username) {
+    public ResponseEntity<User> getUser(@RequestBody String username) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -59,8 +64,8 @@ public class UserController  {
      * Retrieve a user by id.
      * @param id - user's unique int id
      * @return
-     *          Success: Requested User
-     *          Failure: NOT_FOUND
+     *          Success: User Object & OK
+     *          Failure: null & NOT_FOUND
      */
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") int id) {
@@ -75,27 +80,25 @@ public class UserController  {
 
     /**
      * Compares login credentials to stored credentials.
-     * @param username - name of user attempting login
-     * @param password - password provided at login (Plaintext)
+     * @param unAuthorizedUser - unauthenticated user object containing the username and password strings to compare.
      * @return
-     *         Success(Match): "Passwords Match!"
-     *         Success(Mismatch): "Passwords do not match!"
-     *         Failure: NOT_FOUND
+     *         Success: User Object & OK
+     *         Mismatch: null & UNAUTHORIZED
+     *         Failure: null & NOT_FOUND
      */
-    @PutMapping("/user/login")
-    public ResponseEntity<String> loginUser(@RequestParam("username") String username,
-                                              @RequestParam("password") String password) {
-        User user = userRepository.findByUsername(username);
+    @PostMapping("/user/login")
+    public ResponseEntity<User> loginUser(@RequestBody User unAuthorizedUser) {
+        User user = userRepository.findByUsername(unAuthorizedUser.getUsername());
+
         if (user == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
-        if(user.passwordMatch(password)) {
-            user.setLast_login(LocalDateTime.now());
-            userRepository.save(user);
-            return new ResponseEntity<>("Passwords Match!", HttpStatus.OK);
+        if(!user.passwordMatch(unAuthorizedUser.getPasswordHash())) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>("Passwords do not match!", HttpStatus.OK);
+        user.setLastLogin(LocalDateTime.now());
+        userRepository.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
