@@ -14,34 +14,7 @@ public class UserController  {
     @Autowired
     UserRepository userRepository;
 
-    /**
-     * Creates a new user out of the given username and password.
-     * @param username - string containing username
-     * @param password - string containing plaintext password
-     * @return
-     *          Success - user object & OK
-     *          Failure - "Duplicate Username" & BAD_REQUEST
-     *          Error - "Failed to Create User" & OK
-     */
-    @PostMapping("/user/create")
-    public ResponseEntity<?> createUser(@RequestBody String username,
-                                        @RequestBody String password) {
-        // Duplicate Check
-        if(userRepository.findByUsername(username) != null) {
-            return new ResponseEntity<>("Duplicate Username", HttpStatus.BAD_REQUEST);
-        }
-
-        try {
-            User newUser = new User(username, password);
-
-            userRepository.save(newUser);
-
-            return new ResponseEntity<>(newUser, HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<>("Failed to Create User", HttpStatus.OK);
-        }
-    }
-
+    /*-----------------< ENDPOINT LEAVING SOON >-----------------*/
     /**
      * Retrieve a user by username.
      * @param username - user's unique username string
@@ -50,7 +23,7 @@ public class UserController  {
      *          Failure: null & NOT_FOUND
      */
     @GetMapping("/user")
-    public ResponseEntity<User> getUser(@RequestBody String username) {
+    public ResponseEntity<User> getUser(@RequestParam String username) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -59,6 +32,7 @@ public class UserController  {
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    /*-----------------------------------------------------------*/
 
     /**
      * Retrieve a user by id.
@@ -79,8 +53,40 @@ public class UserController  {
     }
 
     /**
+     * Creates a new user out of the given username and password.
+     * @param userToCreate - JSON version of the user object containing only a username and password
+     *                     - Input Format:
+     *                          {
+     *                              "username":"RonBurgundy6",
+     *                              "passwordHash":"StayClassySD84"
+     *                          }
+     * @return
+     *          Success - user object & OK
+     *          Failure - "Duplicate Username" & BAD_REQUEST
+     *          Error - "Failed to Create User" & OK
+     */
+    @PostMapping("/user/create")
+    public ResponseEntity<?> createUser(@RequestBody User userToCreate) {
+        // Duplicate Check
+        if(userRepository.findByUsername(userToCreate.getUsername()) != null) {
+            return new ResponseEntity<>("Duplicate Username", HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            User newUser = new User(userToCreate.getUsername(), userToCreate.getPasswordHash());
+
+            userRepository.save(newUser);
+
+            return new ResponseEntity<>(newUser, HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>("Failed to Create User", HttpStatus.OK);
+        }
+    }
+
+    /**
      * Compares login credentials to stored credentials.
      * @param unAuthorizedUser - unauthenticated user object containing the username and password strings to compare.
+     *                         - Same request body JSON format as the createUser() endpoint
      * @return
      *         Success: User Object & OK
      *         Mismatch: null & UNAUTHORIZED
