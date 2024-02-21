@@ -7,11 +7,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.skillmagnet.Course.Course;
 import com.skillmagnet.User.User;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -27,14 +28,27 @@ public class Enrolls {
     private LocalDateTime enrolledAt;
     private int progress;
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    /*
+     * Each User and Course has a OneToMany 
+     * association with Enrollment, 
+     * representing that a user can have multiple enrollments 
+     * and a course can have multiple enrollments.
+     * 
+     * name represents the column name in the enrolls table
+     */
+
+
+    @ManyToOne
+    @JoinColumn(name = "cid", referencedColumnName = "id")
     private Course enrolledCourse;
-    //@JoinTable
+
+    @Hidden
+    @ManyToOne
+    @JoinColumn(name = "uid", referencedColumnName="id")
     private User enrolledUser;
     
+    public Enrolls() {
+        this.progress = 0; //sets progress to 0 on default during creation
+    }
 
-    public Enrolls() {}
-
-    // public Enrolls()
 }
