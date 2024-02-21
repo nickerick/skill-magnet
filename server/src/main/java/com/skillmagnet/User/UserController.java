@@ -38,6 +38,24 @@ public class UserController  {
     }
 
     /**
+     * Retrieve a user by username.
+     * @param username - user's unique username string
+     * @return
+     *          Success: Requested User
+     *          Failure: NOT_FOUND
+     */
+    @GetMapping("/user")
+    public ResponseEntity<User> getUser(@RequestParam("username") String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    /**
      * Retrieve a user by id.
      * @param id - user's unique int id
      * @return
