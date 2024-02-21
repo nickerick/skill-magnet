@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import CourseCard from '../../components/CourseCard';
 import UserService from '../../services/UserService';
 import './Marketplace.css'
+import VideoUploadExample from '../../components/example/VideoUploadExample';
 
 export default function Marketplace() {
   const [username, setUsername] = useState('');
