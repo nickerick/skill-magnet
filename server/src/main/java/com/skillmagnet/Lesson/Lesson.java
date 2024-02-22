@@ -2,11 +2,13 @@ package com.skillmagnet.Lesson;
 
 import com.skillmagnet.Course.Course;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "lesson")
 public class Lesson {

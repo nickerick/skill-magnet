@@ -1,10 +1,11 @@
 package com.skillmagnet.Lesson;
 
+import com.skillmagnet.Course.Course;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.Getter;
-//import org.springframework.lang.NonNull;
 
 @Getter
 @Data
@@ -13,7 +14,7 @@ public class LessonRequest {
     @NotEmpty
     private String title;
 
-    @NotNull
+    @Positive(message = "Must supply a valid course id")
     private int courseId;
 
     @NotEmpty
@@ -22,7 +23,16 @@ public class LessonRequest {
     @NotNull(message = "Must supply either SELF_HOSTED or YOUTUBE")
     private VideoType videoType;
 
-    @NotNull
+    @Positive(message = "Must supply a valid lesson number")
     private int videoNumber;
 
+    Lesson toLesson(Course course) {
+        return Lesson.builder()
+                .title(this.title)
+                .course(course)
+                .videoLink(this.videoLink)
+                .videoType(this.videoType)
+                .videoNumber(this.videoNumber)
+                .build();
+    }
 }
