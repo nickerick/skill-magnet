@@ -21,6 +21,12 @@ public class LessonController {
     @Autowired
     CourseRepository courseRepository;
 
+    /**
+     * Retrieves a lesson by its ID.
+     *
+     * @param id The ID of the lesson to retrieve.
+     * @return {@code Lesson} on success otherwise a NOT_FOUND status.
+     */
     @GetMapping("/lessons/{id}")
     public ResponseEntity<?> getLesson(@PathVariable("id") int id) {
         Optional<Lesson> lesson = lessonRepository.findById(id);
@@ -32,17 +38,30 @@ public class LessonController {
         return new ResponseEntity<>(lesson.get(), HttpStatus.OK);
     }
 
+    /**
+     * Retrieves all lessons.
+     *
+     * @return ResponseEntity with a list of all lessons.
+     */
     @GetMapping("/lessons")
     public ResponseEntity<?> getAllLessons() {
         List<Lesson> lessons = lessonRepository.findAll();
         return new ResponseEntity<>(lessons, HttpStatus.OK);
     }
 
+    /**
+     * Creates a new lesson.
+     *
+     * @param newLesson The lesson to be created, provided in the request body.
+     * @return The created course on success otherwise
+     * - 404 with message "Course does not exist"
+     * - 400 with message "Duplicate video number"
+     */
     @PostMapping("/lessons")
     public ResponseEntity<?> createLesson(@Valid @RequestBody LessonRequest newLesson) {
         Course course = courseRepository.findById(newLesson.getCourseId());
         if (null == course) {
-            return new ResponseEntity<>("Course does not exist", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Course does not exist", HttpStatus.NOT_FOUND);
         }
 
         List<Lesson> lessons = course.getLessons();
@@ -58,6 +77,13 @@ public class LessonController {
         return new ResponseEntity<>(lesson, HttpStatus.OK);
     }
 
+    /**
+     * Updates an existing lesson.
+     *
+     * @param id        The ID of the lesson to update.
+     * @param newLesson The updated lesson data provided in the request body.
+     * @return The updated lesson or a NOT_FOUND status if the lesson is not found.
+     */
     @PutMapping("/lessons/{id}")
     public ResponseEntity<?> updateLesson(@PathVariable int id, @RequestBody LessonRequest newLesson) {
         Lesson lesson = lessonRepository.findById(id).orElse(null);
@@ -83,6 +109,12 @@ public class LessonController {
         return new ResponseEntity<>(lesson, HttpStatus.OK);
     }
 
+    /**
+     * Deletes a lesson by its ID.
+     *
+     * @param id The ID of the lesson to delete.
+     * @return The deleted lesson or a NOT_FOUND status if the lesson is not found.
+     */
     @DeleteMapping("/lessons/{id}")
     public ResponseEntity<?> deleteLesson(@PathVariable("id") int id) {
         Optional<Lesson> lesson = lessonRepository.findById(id);
@@ -92,7 +124,6 @@ public class LessonController {
         }
 
         lessonRepository.delete(lesson.get());
-
         return new ResponseEntity<>(lesson.get(), HttpStatus.OK);
     }
 }
