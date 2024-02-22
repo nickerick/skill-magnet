@@ -102,7 +102,7 @@ public class LessonController {
         }
 
         String newVideoLink = newLesson.getVideoLink();
-        if (null != newVideoLink && newVideoLink.equals(lesson.getVideoLink())) {
+        if (null != newVideoLink && !newVideoLink.equals(lesson.getVideoLink())) {
             lesson.setVideoLink(newVideoLink);
         }
 
