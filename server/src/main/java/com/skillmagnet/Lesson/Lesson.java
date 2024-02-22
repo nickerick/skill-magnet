@@ -1,5 +1,6 @@
 package com.skillmagnet.Lesson;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skillmagnet.Course.Course;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,4 +32,8 @@ public class Lesson {
 
     private int videoNumber;
 
+    @JsonIgnore
+    public Course getCourse() {
+        return this.course;
+    }
 }

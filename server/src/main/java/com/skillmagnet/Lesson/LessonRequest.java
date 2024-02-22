@@ -4,11 +4,11 @@ import com.skillmagnet.Course.Course;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Data;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Data
+@Builder
 public class LessonRequest {
 
     @NotEmpty
