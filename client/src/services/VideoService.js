@@ -20,6 +20,9 @@ const videoStorageBucket = new AWS.S3({
   region: REGION,
 });
 
+// Max file size = 20 MB
+const MAX_FILE_SIZE = 20 * 1024 * 1024;
+
 class VideoService {
   /**
    * Generates a signed AWS URL from given videoName.
@@ -48,6 +51,7 @@ class VideoService {
   async uploadVideo(file, videoName) {
     return new Promise((resolve, reject) => {
       if (file == null || videoName == null) reject();
+      if (file.size > MAX_FILE_SIZE) reject('File too large');
 
       const params = {
         ACL: 'private',
