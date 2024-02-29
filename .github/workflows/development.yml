@@ -28,6 +28,10 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          VITE_API_URL_BASE: /api/
+          VITE_AWS_S3_PUBLIC_KEY: ${{ secrets.AWS_S3_PUBLIC_KEY }}
+          VITE_AWS_S3_SECRET_KEY: ${{ secrets.AWS_S3_SECRET_KEY }}
 
       - name: Copy Frontend Build To Backend Static Files
         run: |
