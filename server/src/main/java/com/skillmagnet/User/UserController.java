@@ -143,20 +143,16 @@ public class UserController  {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        // Here we grab the lessons completed set from the user to
-        // make the second line more readable.
-        // Since the lessonToaAdd is an optional we have to make sure it is
-        // actually a Lesson with .isPresent(), then we pass isPresent an action
-        // ie: add our new lesson to our list of completed lessons
+        // Safe to assume that the Optional Contains a lesson at this point
+        // so we can use .get() knowing it will be a lesson added to the set
         Set<Lesson> lessonsCompleted = user.getLessonsCompleted();
-        lessonToAdd.ifPresent(lessonsCompleted::add);
+        lessonsCompleted.add(lessonToAdd.get());
         user.setLessonsCompleted(lessonsCompleted);
 
         // Find enrollment object to update progress
-        // .map just allows to get the getCourse for lesson object from optional
         Enrolls userEnrollment = enrollsRepository
                 .findByEnrolledCourseAndEnrolledUser(
-                    lessonToAdd.map(Lesson::getCourse).orElse(null), // Course
+                    lessonToAdd.get().getCourse(), // Course
                     user); // user
         if(userEnrollment == null){
             // A more detailed error probably needs to be here
@@ -166,7 +162,7 @@ public class UserController  {
         }
 
         // get new progress by passing in the user and course objects
-        int newProgress = userEnrollment.calculateProgress(user, lessonToAdd.map(Lesson::getCourse).orElse(null));
+        int newProgress = userEnrollment.calculateProgress(user, lessonToAdd.get().getCourse());
         userEnrollment.setProgress(newProgress);
         
 
