@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EnrollsRepository extends JpaRepository<Enrolls, Long>{
     List<Enrolls> findByEnrolledUser(User u);
+    List<Enrolls> findByEnrolledCourse(Course c);
     Enrolls findByEnrolledCourseAndEnrolledUser(Course c, User u);
     // List<Enrolls> findByCourse()
 }
