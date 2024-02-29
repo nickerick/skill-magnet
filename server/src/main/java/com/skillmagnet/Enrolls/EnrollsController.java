@@ -88,6 +88,7 @@ public class EnrollsController {
         // TODO: Create Actual progress system
         // Once lessons are done maybe something like
         // (lessonsCompleted / lessonsAvailable) * 100
+        enrolledCourse.getLessons();
         enrollment.setProgress(100);
         enrollsRepository.save(enrollment);
         return new ResponseEntity<>(enrollment, HttpStatus.OK);
