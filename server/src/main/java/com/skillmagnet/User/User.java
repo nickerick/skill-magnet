@@ -1,9 +1,13 @@
 package com.skillmagnet.User;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.skillmagnet.Lesson.Lesson;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +15,7 @@ import lombok.Setter;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,6 +36,10 @@ public class User {
 
     private LocalDateTime lastLogin;
 
+    @OneToMany
+    @JoinColumn(name = "lesson_id")
+    private Set<Lesson> lessonsCompleted;
+    
     public User(String username, String plaintextPassword) {
         this.username = username;
         // Hash the plain-text password first

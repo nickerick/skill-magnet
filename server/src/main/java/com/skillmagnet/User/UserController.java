@@ -5,7 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.skillmagnet.Enrolls.Enrolls;
+import com.skillmagnet.Enrolls.EnrollsRepository;
+import com.skillmagnet.Lesson.Lesson;
+import com.skillmagnet.Lesson.LessonRepository;
+
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api")
@@ -13,6 +20,12 @@ public class UserController  {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    LessonRepository lessonRepository;
+
+    @Autowired
+    EnrollsRepository enrollsRepository;
 
     /*-----------------< ENDPOINT LEAVING SOON >-----------------*/
     /**
@@ -105,6 +118,62 @@ public class UserController  {
 
         user.setLastLogin(LocalDateTime.now());
         userRepository.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    
+    /**
+     * This endpoint is to be used when a user "finishes" a lesson
+     * If requested lesson exists it's added to the users set of completed lessons
+     * 
+     * Tracking lessons completed allows us to be able to update course progress
+     * in enrollment objects which is also completed here automatically
+     * 
+     * @param uid - user that finished course
+     * @param lid - lesson they completed
+     * @return
+     *         Success: User Object & OK
+     *         Failure: null & NOT_FOUND
+     */
+    @PostMapping("/user/lesson/{uid}/{lid}")
+    public ResponseEntity<User> addLessonCompleted(@PathVariable("uid") int uid, @PathVariable("lid") int lid){
+        // If either lesson or user doesn't exist, return not found
+        User user = userRepository.findById(uid);
+        Optional<Lesson> lessonToAdd = lessonRepository.findById(lid);
+        if(lessonToAdd.isEmpty() || user == null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        // Here we grab the lessons completed set from the user to
+        // make the second line more readable.
+        // Since the lessonToaAdd is an optional we have to make sure it is
+        // actually a Lesson with .isPresent(), then we pass isPresent an action
+        // ie: add our new lesson to our list of completed lessons
+        Set<Lesson> lessonsCompleted = user.getLessonsCompleted();
+        lessonToAdd.ifPresent(lessonsCompleted::add);
+        user.setLessonsCompleted(lessonsCompleted);
+
+        // Find enrollment object to update progress
+        // .map just allows to get the getCourse for lesson object from optional
+        Enrolls userEnrollment = enrollsRepository
+                .findByEnrolledCourseAndEnrolledUser(
+                    lessonToAdd.map(Lesson::getCourse).orElse(null), // Course
+                    user); // user
+        if(userEnrollment == null){
+            // A more detailed error probably needs to be here
+            // This would be an issue if a user is completing a lesson in a course
+            // they are not enrolled in
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        // get new progress by passing in the user and course objects
+        int newProgress = userEnrollment.calculateProgress(user, lessonToAdd.map(Lesson::getCourse).orElse(null));
+        userEnrollment.setProgress(newProgress);
+        
+
+        // save all changes
+        userRepository.save(user);
+        enrollsRepository.save(userEnrollment);
+
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

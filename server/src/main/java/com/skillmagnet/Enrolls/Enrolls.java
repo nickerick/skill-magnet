@@ -1,10 +1,13 @@
 package com.skillmagnet.Enrolls;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.skillmagnet.Course.Course;
+import com.skillmagnet.Lesson.Lesson;
 import com.skillmagnet.User.User;
 
 import jakarta.persistence.Entity;
@@ -47,6 +50,27 @@ public class Enrolls {
     
     public Enrolls() {
         this.progress = 0; //sets progress to 0 on default during creation
+    }
+
+    /**
+     * Returns new progress calculated by 
+     * (lessonsFinished/lessonsAvailableInCourse)
+     * @param u - user enrolled
+     * @param c - course enrolled in
+     * @return - whole integer 1-100 to be represented as a percentage
+     */
+    public int calculateProgress(User u, Course c){
+        List<Lesson> courseLessons = c.getLessons();
+        Set<Lesson> userLessons = u.getLessonsCompleted();
+        int completedLessonsCount = 0;
+        // Iterate through the lessons of the course
+        for (Lesson lesson : courseLessons) {
+            // Check if the user has completed the lesson
+            if (userLessons.contains(lesson)) {
+                completedLessonsCount++;
+            }
+        }
+        return (int) Math.round((double) completedLessonsCount / courseLessons.size() * 100);
     }
 
 }
