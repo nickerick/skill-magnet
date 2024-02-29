@@ -77,24 +77,6 @@ public class EnrollsController {
         return new ResponseEntity<>(newEnrollment, HttpStatus.OK);
     }
 
-    @PutMapping("/enrolls/{uid}/{cid}")
-    public ResponseEntity<Enrolls> updateProgress(@PathVariable("uid") int uid, @PathVariable("cid") int cid){
-        User enrolledUser = userRepository.findById(uid);
-        Course enrolledCourse = courseRepository.findById(cid);
-        Enrolls enrollment = enrollsRepository.findByEnrolledCourseAndEnrolledUser(enrolledCourse, enrolledUser); 
-        if(enrolledUser == null || enrolledCourse == null || enrollment == null){
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-        // TODO: Create Actual progress system
-        // Once lessons are done maybe something like
-        // (lessonsCompleted / lessonsAvailable) * 100
-        int newProgress = enrollment.calculateProgress(enrolledUser, enrolledCourse);
-
-        enrollment.setProgress(100);
-        enrollsRepository.save(enrollment);
-        return new ResponseEntity<>(enrollment, HttpStatus.OK);
-    }
-
     @DeleteMapping("/enrolls/{uid}/{cid}")
     public ResponseEntity<Enrolls> deleteEnrollment(@PathVariable("uid") int uid, @PathVariable("cid") int cid){
         User enrolledUser = userRepository.findById(uid);
