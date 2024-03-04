@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -6,7 +6,7 @@
 
 }
 
-.container{
+.container {
     width: 100%;
     min-height: 100vh;
     background: #f8f8f8;
