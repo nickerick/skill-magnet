@@ -1,6 +1,6 @@
 .lesson-card {
     display: flex;
-    width: calc(20% - 5px);
+    width: 350px;
     margin-bottom: 20px;
     background-color: #ffffff;
     border-radius: 40px;
@@ -13,7 +13,7 @@
 }
 
 .lesson-image {
-    width: calc(40% - 5px);
+    width: 250px;
     height: 150px;
     background-color: #f0f0f0;
     border-radius: 20px;
@@ -31,7 +31,6 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: 20px;
-    max-width: 200px;
 }
 
 .lesson-title {

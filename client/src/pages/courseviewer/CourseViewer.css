@@ -20,6 +20,7 @@
     border-radius: 50px;
     background-color: #cef4fb;
     margin-top: 12px;
+    overflow: hidden;
 }
 
 .progress-bar-fill{
@@ -39,6 +40,7 @@
 
 .lessons-and-video{
     display: flex;
+    justify-content: space-between;
 }
 
 .lessons-list{
@@ -48,8 +50,7 @@
 }
 
 .video-player {
-    display: flex;
-    float: right;
-    margin-top:-670px;
-    margin-right: 220px;
+    width: 50%;
+    margin-right: 300px;
+    margin-top: 60px;
 }

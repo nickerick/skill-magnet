@@ -49,6 +49,8 @@ export default function CourseViewer() {
 
       </div>
 
+
+
       <div className="lessons-and-video">
         <div className="lessons-list">
           <LessonCard
@@ -69,13 +71,20 @@ export default function CourseViewer() {
             isSelected={selectedLesson === "Intro to Web Programming 3"}
             onClick={() => handleLessonClick("Intro to Web Programming 3")}
           />
-
-          <div className="video-player">
-            <video src={videoUrl} width="1000" height="600" controls></video>
-          </div>
+          <LessonCard
+            lessonTitle="Intro to Web Programming 3"
+            completionStatus="[Progress %]"
+            isSelected={selectedLesson === "Intro to Web Programming 4"}
+            onClick={() => handleLessonClick("Intro to Web Programming 4")}
+          />
         </div>
 
+        <div className="video-player">
+          <video src={videoUrl} width="1100" height="619" controls></video>
+        </div>
       </div>
+
+
 
     </div>
   );
