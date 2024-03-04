@@ -8,12 +8,12 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.lesson-card.clicked {
+.lesson-card.selected {
     background-color: #cef4fb;
 }
 
 .lesson-image {
-    width: 50%;
+    width: calc(40% - 5px);
     height: 150px;
     background-color: #f0f0f0;
     border-radius: 20px;
@@ -31,6 +31,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: 20px;
+    max-width: 200px;
 }
 
 .lesson-title {

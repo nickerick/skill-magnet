@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import './LessonCard.css';
 
-export default function LessonCard({ lessonTitle, imageUrl, completionStatus, index }) {
-  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
-
-  const handleClick = () => {
-    setSelectedCardIndex(index === selectedCardIndex ? null : index);
-  };
+export default function LessonCard({ lessonTitle, imageUrl, completionStatus, isSelected, onClick }) {
 
   return (
-    <div onClick={handleClick} className={`lesson-card ${index === selectedCardIndex ? 'clicked' : ''}`}>
+    <div
+      className={`lesson-card ${isSelected ? 'selected' : ''}`}
+      onClick={onClick}
+    >
       <div className="lesson-image">
         <img src={imageUrl} alt="Lesson" />
       </div>
