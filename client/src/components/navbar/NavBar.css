@@ -1,4 +1,4 @@
-.navbar{
+.navbar {
     width: 100%;
     display: flex;
     align-items: center;
@@ -7,7 +7,7 @@
     z-index: 1000;
 }
 
-.title{
+.title {
     font-size: 40px;
     font-weight: bold;
     color: white;
@@ -16,7 +16,7 @@
     margin-right: 50px;
 }
 
-.search-box{
+.search-box {
     display: flex;
     align-items: center;
     background: #ffffff;
@@ -24,7 +24,7 @@
     border-radius: 50px;
 }
 
-.search-box input{
+.search-box input {
     padding: 10px;
     background: transparent;
     border: 0;
@@ -34,11 +34,11 @@
     max-width: 250px;
 }
 
-.search-box input::placeholder{
+.search-box input::placeholder {
     color: #7f7e7e;
 }
 
-.search-box img{
+.search-box img {
     width: 50px;
     cursor: pointer;
 }

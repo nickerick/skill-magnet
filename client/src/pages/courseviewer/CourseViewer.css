@@ -1,0 +1,56 @@
+.progress-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.progress-title {
+    font-size: 35px;
+    font-weight: bold;
+    color: #181d31;
+    margin-left: 50px;
+    white-space: nowrap;
+}
+
+.progress-bar {
+    width: 1050px;
+    height: 35px;
+    border-radius: 50px;
+    background-color: #cef4fb;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    background-color: #181d31;
+    transition: width 0.5s ease-out;
+}
+
+.progress-label {
+    margin-top: -5px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #181d31;
+    margin-right: 360px;
+}
+
+.lessons-and-video {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lessons-list {
+    margin-left:50px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.video-player {
+    width: 50%;
+    margin-right: 300px;
+    margin-top: 60px;
+}
