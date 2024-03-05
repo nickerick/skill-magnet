@@ -5,42 +5,39 @@ import reactLogo from '/react.svg';
 import viteLogo from '/vite.svg';
 
 import './Home.css';
+import cover from '../../assets/site_background.jpg';
 
 export default function Home() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <br />
-        <br />
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="homepage-photo">
+        <img src={cover} />
+        <div className="text-card">
+          <h1>One stop shop for your learning needs</h1>
+          <h2>Educational content and study tools in one place</h2>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button
-          variant="contained"
-          onClick={() => setCount(count => count + 1)}
-        >
-          I'm a MUI Button. Click me to update count.
-        </Button>
-        <Box border="2px solid" my={2} p={1} bgcolor="gray">
-          I'm another MUI component demo. I hold text and show some inline
-          styling tricks
-        </Box>
-        {count}
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="about-us">
+        <h1>What makes SkillMagnet unique</h1>
+        <h3>Our goal is to provide a centralized platform for students to access quality educational resources and
+          user-driven study tools.
+          <br /><br />
+          Our platform will make learning more efficient and effective by organizing content into lessons, tracking user
+          progress, and offering study tools like flashcards and quizzes.
+          <br /><br />
+          We aim to make learning more efficient and effective by offering a well-structured and interactive educational
+          environment.
+          <br /><br />
+        </h3>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <div className="quotes">
+
+      </div>
+
     </>
   );
 }
