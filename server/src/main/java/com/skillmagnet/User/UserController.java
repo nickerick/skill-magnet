@@ -134,17 +134,14 @@ public class UserController  {
      *         Success: User Object & OK
      *         Failure: null & NOT_FOUND
      */
-    @PostMapping("/user/lesson/{uid}/{lid}")
-    public ResponseEntity<User> addLessonCompleted(@PathVariable("uid") int uid, @PathVariable("lid") int lid){
+    @PostMapping("/user/{uid}/lesson/{lid}")
+    public ResponseEntity<?> addLessonCompleted(@PathVariable("uid") int uid, @PathVariable("lid") int lid){
         // If either lesson or user doesn't exist, return not found
         User user = userRepository.findById(uid);
         Optional<Lesson> lessonToAdd = lessonRepository.findById(lid);
         if(lessonToAdd.isEmpty() || user == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
-        // Safe to assume that the Optional Contains a lesson at this point
-        // so we can use .get() knowing it will be a lesson added to the set
         Set<Lesson> lessonsCompleted = user.getLessonsCompleted();
         lessonsCompleted.add(lessonToAdd.get());
         user.setLessonsCompleted(lessonsCompleted);
@@ -155,18 +152,13 @@ public class UserController  {
                     lessonToAdd.get().getCourse(), // Course
                     user); // user
         if(userEnrollment == null){
-            // A more detailed error probably needs to be here
-            // This would be an issue if a user is completing a lesson in a course
-            // they are not enrolled in
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         // get new progress by passing in the user and course objects
         int newProgress = userEnrollment.calculateProgress(user, lessonToAdd.get().getCourse());
         userEnrollment.setProgress(newProgress);
         
-
-        // save all changes
         userRepository.save(user);
         enrollsRepository.save(userEnrollment);
 

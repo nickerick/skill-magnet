@@ -3,6 +3,7 @@ package com.skillmagnet.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.skillmagnet.Lesson.Lesson;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -36,6 +37,7 @@ public class User {
 
     private LocalDateTime lastLogin;
 
+    @Hidden
     @OneToMany
     @JoinColumn(name = "lesson_id")
     private Set<Lesson> lessonsCompleted;

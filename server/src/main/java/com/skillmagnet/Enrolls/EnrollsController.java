@@ -1,16 +1,9 @@
 package com.skillmagnet.Enrolls;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.skillmagnet.Course.Course;
 import com.skillmagnet.Course.CourseRepository;
@@ -40,8 +33,8 @@ public class EnrollsController {
      * @param id - user id
      * @return a List of enrollments
      */
-    @GetMapping("/enrolls/{uid}")
-    public ResponseEntity<List<Enrolls>> getUserEnrolledCourses(@PathVariable("uid") int id){
+    @GetMapping("/enrolls/user/{uid}")
+    public ResponseEntity<?> getUserEnrolledCourses(@PathVariable("uid") int id){
         User requestedUser = userRepository.findById(id);
         if (requestedUser == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -58,11 +51,11 @@ public class EnrollsController {
      * @param cid - course ID
      * @return - new Enrollment that's been saved
      */
-    @PostMapping("/enrolls/{uid}/{cid}")
-    public ResponseEntity<Enrolls> createEnrollment(@PathVariable("uid") int uid, @PathVariable("cid") int cid){
+    @PostMapping("/enrolls")
+    public ResponseEntity<?> createEnrollment(@RequestBody EnrollsRequest enrollsRequest){
         // Find user and course objects and verify they exist/aren't null
-        User enrolledUser = userRepository.findById(uid);
-        Course enrolledCourse = courseRepository.findById(cid);
+        User enrolledUser = userRepository.findById(enrollsRequest.getUserId());
+        Course enrolledCourse = courseRepository.findById(enrollsRequest.getCourseId());
         if(enrolledUser == null || enrolledCourse == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -76,8 +69,8 @@ public class EnrollsController {
         return new ResponseEntity<>(newEnrollment, HttpStatus.OK);
     }
 
-    @DeleteMapping("/enrolls/{uid}/{cid}")
-    public ResponseEntity<Enrolls> deleteEnrollment(@PathVariable("uid") int uid, @PathVariable("cid") int cid){
+    @DeleteMapping("/enrolls/user/{uid}/course/{cid}")
+    public ResponseEntity<?> deleteEnrollment(@PathVariable("uid") int uid, @PathVariable("cid") int cid){
         User enrolledUser = userRepository.findById(uid);
         Course enrolledCourse = courseRepository.findById(cid);
         Enrolls enrollment = enrollsRepository.findByEnrolledCourseAndEnrolledUser(enrolledCourse, enrolledUser); 
