@@ -4,6 +4,7 @@
     align-items: center;
     background:#181d31;
     position: sticky;
+    z-index: 1000;
 }
 
 .title{
