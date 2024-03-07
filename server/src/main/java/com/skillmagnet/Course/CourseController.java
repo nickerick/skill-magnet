@@ -5,6 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.skillmagnet.Enrolls.Enrolls;
+import com.skillmagnet.Enrolls.EnrollsRepository;
+
 import java.util.List;
 
 
@@ -17,6 +20,9 @@ public class CourseController {
      */
     @Autowired
     CourseRepository courseRepository;
+
+    @Autowired
+    EnrollsRepository enrollsRepository;
 
     /**
      * Retrieves specific course by id
@@ -80,7 +86,12 @@ public class CourseController {
         if (course == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+        
+        // Delete Enrollments to this course
+        List<Enrolls> enrollmentsToDelete = enrollsRepository.findByEnrolledCourse(course);
+        enrollsRepository.deleteAll(enrollmentsToDelete);
 
+        // Delete Course
         courseRepository.delete(course);
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
