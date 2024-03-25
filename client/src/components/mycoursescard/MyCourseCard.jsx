@@ -13,8 +13,12 @@ export default function MyCourseCard({courseTitle, imageUrl, instructorName, pro
         {instructorName}
       </div>
 
-
+      <div className="progress-bar">
+        <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+      </div>
+      <div className="progress-label">{progress}%</div>
 
 
     </div>
-  );}
+  );
+}

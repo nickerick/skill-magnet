@@ -36,4 +36,26 @@
     text-align: center;
 }
 
+.progress-bar {
+    width: calc(80% - 10px);
+    height: 20px;
+    border-radius: 50px;
+    background-color: #cef4fb;
+    overflow: hidden;
+    margin: 10px auto auto;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    background-color: #181d31;
+}
+
+.progress-label {
+    color: #181d31;
+    text-align: center;
+    margin: 5px auto auto;
+    font-size: 15px;
+
+}
 
