@@ -1,4 +1,4 @@
-import { NewCourse } from '../../components/buttons/newCourse';
+import { NewCourse } from '../../components/buttons/NewCourse';
 import { EditExistingCourse } from '../../components/buttons/EditExistingCourse';
 import './CreatorStudio.css';
 import { Link } from 'react-router-dom';
