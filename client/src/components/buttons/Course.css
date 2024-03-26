@@ -1,0 +1,24 @@
+.button {
+    width: 200px;
+    height: 200px;
+    background: #181d31;
+    border-radius: 40px;
+    padding: 30px;
+    display: flex; /* Add display flex */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container .button {
+    margin-bottom: 20px;
+}
+
+.plus-sign {
+    width: 100px;
+}

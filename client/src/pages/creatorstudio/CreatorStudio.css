@@ -1,0 +1,10 @@
+.new-course-button {
+    display: flex;
+    padding: 20vh 0; /* Adjust top and bottom padding as needed */
+}
+
+/* Adjust position to center the button */
+.new-course-button .new-course {
+    margin-left: -20%; /* Push button to the right */
+    margin-right: 60%; /* Push button to the left */
+}

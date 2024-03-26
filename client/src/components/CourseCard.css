@@ -1,5 +1,5 @@
 .course-card {
-  width: calc(25% - 5px);
+  width:400px; /* Adjust according to your design */
   margin-bottom: 20px;
   background-color: #ffffff;
   border-radius: 10px;
