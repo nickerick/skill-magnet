@@ -1,10 +1,41 @@
 .courses-list-container {
-    max-width: 1200px; /* Adjust the maximum width as needed */
-    margin: 0 auto; /* Center the container */
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .courses-list {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap onto the next row */
-    justify-content: space-between; /* Adjust spacing between items */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+}
+
+.header-and-filters-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-options .MuiButton-contained {
+    background-color: #cef4fb;
+    border-radius: 50px;
+    margin-left: 30px;
+    padding: 10px 20px;
+}
+
+.filter-options .MuiButton-contained a {
+    text-decoration: none;
+    color: #181d31;
+    font-size: 16px;
+    text-transform: none
+}
+
+.filter-options .MuiButton-contained:hover {
+    background-color: #7f7e7e;
+}
+
+.prev-button img,
+.next-button img {
+    width: 20px;
+    height: 20px;
 }
