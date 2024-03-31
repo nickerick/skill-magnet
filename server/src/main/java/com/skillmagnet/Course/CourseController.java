@@ -1,12 +1,13 @@
 package com.skillmagnet.Course;
 
+import com.skillmagnet.Enrolls.Enrolls;
+import com.skillmagnet.Enrolls.EnrollsRepository;
+import com.skillmagnet.Recommendation.CourseNode;
+import com.skillmagnet.Recommendation.CourseNodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.skillmagnet.Enrolls.Enrolls;
-import com.skillmagnet.Enrolls.EnrollsRepository;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class CourseController {
 
     @Autowired
     EnrollsRepository enrollsRepository;
+
+    @Autowired
+    CourseNodeRepository courseNodeRepository;
 
     /**
      * Retrieves specific course by id
@@ -71,6 +75,14 @@ public class CourseController {
         }
 
         courseRepository.save(course);
+
+        try {
+            CourseNode courseNode = new CourseNode(course.getId(), course.getTitle());
+            courseNodeRepository.save(courseNode);
+        } catch (Exception e) {
+            System.out.println("GraphDBError: Failed to create Course " + course.getId());
+        }
+
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
@@ -86,7 +98,7 @@ public class CourseController {
         if (course == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        
+
         // Delete Enrollments to this course
         List<Enrolls> enrollmentsToDelete = enrollsRepository.findByEnrolledCourse(course);
         enrollsRepository.deleteAll(enrollmentsToDelete);
