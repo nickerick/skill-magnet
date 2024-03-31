@@ -1,7 +1,11 @@
 package com.skillmagnet.Enrolls;
 
+import com.skillmagnet.CompletedLesson.CompletedLesson;
+import com.skillmagnet.CompletedLesson.CompletedLessonRepository;
 import com.skillmagnet.Course.Course;
 import com.skillmagnet.Course.CourseRepository;
+import com.skillmagnet.Lesson.Lesson;
+import com.skillmagnet.Lesson.LessonRepository;
 import com.skillmagnet.Recommendation.UserNodeRepository;
 import com.skillmagnet.User.User;
 import com.skillmagnet.User.UserRepository;
@@ -28,6 +32,12 @@ public class EnrollsController {
 
     @Autowired
     UserNodeRepository userNodeRepository;
+
+    @Autowired
+    LessonRepository lessonRepository;
+
+    @Autowired
+    CompletedLessonRepository completedLessonRepository;
 
     /**
      * Find's all enrollments based on user id
@@ -90,6 +100,34 @@ public class EnrollsController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         enrollsRepository.delete(enrollment);
+        return new ResponseEntity<>(enrollment, HttpStatus.OK);
+    }
+
+    /**
+     * This endpoint is to be used when a user "finishes" a lesson
+     * Finds all necessary objects (user,lesson,enrollment)
+     * Creates new CompletedLesson object, added to enrollment completedLessons var
+     * Sets progress for enrollment
+     *
+     * @param requestData - {"lessonId": 1, "userId": 1}
+     * @return Success: Enrollment Object & OK
+     * Failure: null & NOT_FOUND
+     */
+    @PutMapping("/enrolls/user/lesson")
+    public ResponseEntity<?> addLessonCompleted(@RequestBody EnrollsLessonRequest requestData) {
+        Lesson lesson = lessonRepository.findById(requestData.getLessonId()).get();
+        User user = userRepository.findById(requestData.getUserId());
+        Enrolls enrollment = enrollsRepository.findByEnrolledCourseAndEnrolledUser(
+                lesson.getCourse(), user);
+        if (lesson == null || user == null || enrollment == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        CompletedLesson newLesson = new CompletedLesson();
+        newLesson.setLesson(lesson);
+        completedLessonRepository.save(newLesson);
+
+        enrollment.addCompletedLessonAndSetProgress(newLesson);
+        enrollsRepository.save(enrollment);
         return new ResponseEntity<>(enrollment, HttpStatus.OK);
     }
 
