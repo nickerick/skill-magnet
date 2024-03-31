@@ -13,7 +13,8 @@ import './main.css';
 import CreatorStudio from './pages/creatorstudio/CreatorStudio.jsx';
 import MyCourses from './pages/mycourses/MyCourses.jsx';
 import CourseViewer from './pages/courseviewer/CourseViewer.jsx';
-
+import CreateNewCourse from './pages/createnewcourse/CreateNewCourse.jsx'; 
+import EditExistingCourse from './pages/editexistingcourse/EditExistingCourse.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         path: 'courseviewer',
         element: <CourseViewer />,
       },
+      {
+        path: 'createnewcourse', 
+        element: <CreateNewCourse />,
+      }, 
+      {
+        path: 'editexistingcourse',
+        element: <EditExistingCourse />, 
+      }
     ],
   },
 ]);

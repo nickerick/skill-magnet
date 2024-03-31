@@ -1,10 +1,11 @@
 import MyCourseCard from '../../components/mycoursescard/MyCourseCard.jsx';
 import './MyCourses.css'
+import Header from '../../components/Header.jsx';
 
 export default function MyCourses() {
   return(
     <div className="my-courses">
-      <div className="enrolled-courses-title">Enrolled Courses</div>
+      <div className="enrolled-courses-title"><Header headerName="Enrolled Courses" /></div>
 
       <div className="mycourses-list-container">
         <div className="mycourses-list">

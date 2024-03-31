@@ -1,7 +1,9 @@
 .header-name {
     color: #181d31;
     font-size: 30px;
+    font-weight: bold;
     padding: 1%;
-    text-align: center;
-    white-space: nowrap; 
+    white-space: nowrap;
+    margin-top: 42px;
+    margin-bottom: 40px; 
 }
