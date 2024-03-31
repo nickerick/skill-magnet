@@ -11,7 +11,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 public class CourseNode {
 
     @Id
-    private int id;
+    private int courseId;
 
     private String name;
 }
