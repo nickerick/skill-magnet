@@ -29,7 +29,7 @@ export const NavBar = () => {
         <Button variant="contained">
           <Link to={`loginsignup`}> Login/Sign Up</Link>
         </Button>
-        
+
       </div>
 
     </div>
