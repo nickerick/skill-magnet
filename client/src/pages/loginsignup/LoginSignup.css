@@ -65,21 +65,12 @@
     margin: 60px auto;
 }
 
-.submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 220px;
-    height: 60px;
-    color: #fff;
-    background: #181d31;
+.loginsignup .MuiButton-contained {
+    background-color: #181d31;
     border-radius: 50px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
+    margin-left: 40px;
 }
 
-.gray {
-    background: #7f7e7e;
-    color: #EAEAEA;
+.loginsignup .MuiButton-contained:hover {
+    background-color: #7f7e7e;
 }

@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import user_icon from '../../assets/person.png';
 import email_icon from '../../assets/email.png';
 import password_icon from '../../assets/password.png';
+import { Button } from '@mui/material';
 
 const LoginSignup = () => {
   const [action, setAction] = useState("Sign Up");
@@ -29,7 +30,7 @@ const LoginSignup = () => {
 
   const handleSubmit = () => {
     //testing line
-     window.alert("form submitted. username is " + username + " and password is " + password);
+    window.alert("form submitted. username is " + username + " and password is " + password);
   };
 
   return (
@@ -61,12 +62,25 @@ const LoginSignup = () => {
 
       {allFieldsFilled ? (
         <div className="submit-container">
-          <div className="submit" onClick={handleSubmit}>Submit</div>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={handleSubmit}>Submit</Button>
         </div>
       ) : (
         <div className="submit-container">
-          <div className={action === "Login" ? "submit gray" : "submit"} onClick={() => { setAction("Sign Up") }}>Sign Up</div>
-          <div className={action === "Sign Up" ? "submit gray" : "submit"} onClick={() => { setAction("Login") }}>Login</div>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => { setAction("Sign Up") }}
+            className="submit"
+            style={{ backgroundColor: action === "Sign Up" ? "#181d31" : "#7f7e7e" }}>Sign Up</Button>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => { setAction("Login") }}
+            className="submit"
+            style={{ backgroundColor: action === "Login" ? "#181d31" : "#7f7e7e" }}>Login</Button>
         </div>
       )}
     </div>
