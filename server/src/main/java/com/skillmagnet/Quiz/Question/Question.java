@@ -2,19 +2,34 @@ package com.skillmagnet.Quiz.Question;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skillmagnet.Quiz.Quiz;
+import com.skillmagnet.Quiz.Question.QuestionOption.QuestionOption;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+/**
+ * Main Question type, stores the question text
+ * as well as relations with the corresponding quiz 
+ * and multiple choice options if applicable
+ */
 @Entity
 @Table(name = "Question")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Question {
     @Id
     @GeneratedValue
     private int questionId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
