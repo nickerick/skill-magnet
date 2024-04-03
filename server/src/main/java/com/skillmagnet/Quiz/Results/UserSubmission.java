@@ -6,6 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ * Represents a user's answers for a quiz
+ * Stores their id as well as the quiz id
+ * and then a list of answers defined here
+ */
 @Getter
 @Setter
 public class UserSubmission {

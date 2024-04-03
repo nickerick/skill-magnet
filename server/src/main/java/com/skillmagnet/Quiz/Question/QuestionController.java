@@ -27,6 +27,35 @@ public class QuestionController {
     @Autowired
     private QuestionOptionRepository questionOptionRepository;
 
+    /**
+     * [
+        {
+            "quizId": 1,
+            "questionText": "Best Football callout?",
+            "questionType": "MCQ",
+            "correctShortAnswer": "N/A",
+            "options": [
+                {
+                    "optionText": "BLUE42",
+                    "isCorrect": true
+                },
+                {
+                    "optionText": "GREEN80",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "quizId": 1,
+            "questionText": "SHORT ANSWER",
+            "questionType": "SA",
+            "correctShortAnswer": "YES",
+            "options": []
+        }
+       ]
+     * @param questions
+     * @return
+     */
     @PostMapping("/question")
     public ResponseEntity<List<Question>> createQuestionsForQuiz(@RequestBody List<QuestionRequest> questions) {
         List<Question> addedQuestions = new ArrayList<>(); // used for return

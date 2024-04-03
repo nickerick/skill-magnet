@@ -161,7 +161,67 @@ public class DataInitializer implements CommandLineRunner {
             // Generates rows in QuestionResults Table
             gradingService.gradeSubmission(submission);
 
+            //Second quiz object
 
+            Quiz quiz2 = new Quiz();
+            quiz2.setTitle("Overview Quiz");
+            quiz2.setDescription("Check Your Understanding - Hello, World");
+            quiz2.setLesson(lesson2);
+            quizRepository.save(quiz2);
+
+            Question question3 = new Question();
+            question3.setQuiz(quiz2);
+            question3.setQuestionType(QuestionType.SA);
+            question3.setQuestionText("What is the command to show text in the console?");
+            question3.setCorrectShortAnswer("print");
+            question3.setOptions(null);
+            questionRepository.save(question3);
+            
+            Question question4 = new Question();
+            question4.setQuiz(quiz2);
+            question4.setQuestionType(QuestionType.MCQ);
+            question4.setQuestionText("What will this print? print(2 + 2)");
+            question4.setCorrectShortAnswer("N/A");
+            questionRepository.save(question4);
+
+            // Creating options for question2
+            QuestionOption qo5 = new QuestionOption();
+            qo5.setOptionText("22");
+            qo5.setIsCorrect(false);
+            qo5.setQuestion(question4);
+            questionOptionRepository.save(qo5);
+
+            QuestionOption qo6 = new QuestionOption();
+            qo6.setOptionText("2 + 2");
+            qo6.setIsCorrect(false);
+            qo6.setQuestion(question4);
+            questionOptionRepository.save(qo6);
+
+            QuestionOption qo7 = new QuestionOption();
+            qo7.setOptionText("=4");
+            qo7.setIsCorrect(false);
+            qo7.setQuestion(question4);
+            questionOptionRepository.save(qo7);
+
+            QuestionOption qo8 = new QuestionOption();
+            qo8.setOptionText("4");
+            qo8.setIsCorrect(true);
+            qo8.setQuestion(question4);
+            questionOptionRepository.save(qo8);
+      
+            List<Answer> answers2 = new ArrayList<Answer>(Arrays.asList(
+                new Answer(question3.getQuestionId(), "print", null),
+                new Answer(question4.getQuestionId(), null, qo8.getOptionId())
+            ));
+
+
+            UserSubmission submission2 = new UserSubmission();
+            submission2.setQuizId(quiz2.getQuizId());
+            submission2.setUserId(user2.getId());
+            submission2.setAnswers(answers2);
+
+            // Generates rows in QuestionResults Table
+            gradingService.gradeSubmission(submission2);
 
             System.out.println("Finished generating data.");
         } else {
