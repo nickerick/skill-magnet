@@ -11,6 +11,17 @@ class CourseService {
 
     return await response.json();
   }
+
+  async getEnrolledCourses(userId) {
+    const response = await fetch(`${this.baseUrl}enrolls/user/1`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!response.ok) throw new Error('Fetch failed');
+
+    return await response.json();
+  }
 }
 
 export default new CourseService();
