@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import CourseCard from '../../components/CourseCard';
-import UserService from '../../services/UserService';
 import './Marketplace.css';
 import Header from '../../components/Header';
-import VideoUploadExample from '../../components/example/VideoUploadExample';
 import { Link } from 'react-router-dom';
 import previous from '../../assets/left-arrow-icon.svg';
 import next from '../../assets/right-arrow-icon.svg';

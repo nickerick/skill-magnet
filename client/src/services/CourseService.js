@@ -13,7 +13,7 @@ class CourseService {
   }
 
   async getEnrolledCourses(userId) {
-    const response = await fetch(`${this.baseUrl}enrolls/user/1`, {
+    const response = await fetch(`${this.baseUrl}enrolls/user/${userId}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
