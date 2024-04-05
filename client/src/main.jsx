@@ -13,6 +13,7 @@ import './main.css';
 import CreatorStudio from './pages/creatorstudio/CreatorStudio.jsx';
 import MyCourses from './pages/mycourses/MyCourses.jsx';
 import CourseViewer from './pages/courseviewer/CourseViewer.jsx';
+import Quiz from './pages/quiz/Quiz.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'courseviewer',
         element: <CourseViewer />,
+      },
+      {
+        path: 'quiz',
+        element: <Quiz />,
       },
     ],
   },
