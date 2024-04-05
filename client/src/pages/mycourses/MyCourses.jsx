@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import MyCourseCard from '../../components/mycoursescard/MyCourseCard.jsx';
 import './MyCourses.css';
 import CourseService from '../../services/CourseService';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyCourses() {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
@@ -33,6 +35,7 @@ export default function MyCourses() {
               imageUrl=""
               instructorName={c.enrolledCourse.description}
               progress={c.progress}
+              handleClick={() => navigate(`/courseviewer/${c.id}`)}
             />
           ))}
         </div>
