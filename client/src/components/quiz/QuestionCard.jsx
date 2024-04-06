@@ -19,6 +19,7 @@ export default function QuestionCard({
   question,
   currentAnswer,
   updateAnswer,
+  currentQuestionNum,
 }) {
   // Determine if the question is of type 'MCQ' (Multiple Choice Question)
   const isMCQ = question.questionType === 'MCQ';
@@ -48,7 +49,7 @@ export default function QuestionCard({
       <CardContent>
         <Chip
           color="info"
-          label={'Question ' + question.questionId}
+          label={'Question ' + (currentQuestionNum + 1)}
           sx={{ mb: 1 }}
         />
         <Typography variant="h5" component="div">

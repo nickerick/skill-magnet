@@ -19,8 +19,6 @@ export default function QuizContent({ questions, submitAnswers }) {
     setActiveQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
   };
 
-  const handleComplete = () => {};
-
   const updateAnswer = newAnswer => {
     setUserAnswers(prevAnswers => {
       // Check if an answer for the current question already exists
@@ -51,6 +49,7 @@ export default function QuizContent({ questions, submitAnswers }) {
         <QuestionCard
           question={questions[activeQuestionIndex]}
           updateAnswer={updateAnswer}
+          currentQuestionNum={activeQuestionIndex}
           currentAnswer={userAnswers.find(
             answer =>
               answer.questionId === questions[activeQuestionIndex].questionId,
@@ -67,15 +66,6 @@ export default function QuizContent({ questions, submitAnswers }) {
             Back
           </Button>
           <Box sx={{ flex: '1 1 auto' }} />
-          {/* {isLastQuestion() && allQuestionsCompleted() ? (
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All questions answered - you&apos;re finished
-            </Typography>
-          ) : (
-            <Button onClick={handleNext} sx={{ mr: 1 }}>
-              Next
-            </Button>
-          )} */}
 
           <Button
             disabled={isLastQuestion()}
