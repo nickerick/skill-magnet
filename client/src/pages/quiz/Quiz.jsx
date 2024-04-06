@@ -10,14 +10,18 @@ import {
   Step,
   StepLabel,
   StepButton,
+  Collapse,
 } from '@mui/material';
 import QuizContent from './QuizContent2';
 import QuizService from '../../services/QuizService';
+import GradeReport from '../../components/quiz/GradeReport';
+
 export default function Quiz() {
   let { quizId } = useParams();
   const [quiz, setQuiz] = useState({});
   const [questions, setQuestions] = useState([]);
   const [gradeReport, setGradeReport] = useState({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const formatDateString = dateString => {
     const date = new Date(dateString);
@@ -52,6 +56,7 @@ export default function Quiz() {
       console.log(answerBody);
       const gr = await QuizService.submitQuizResponses(answerBody);
       setGradeReport(gr);
+      setHasSubmitted(true);
     } catch (error) {
       alert('ERROR: failed to submit answers');
     }
@@ -81,9 +86,14 @@ export default function Quiz() {
             </Paper>
           </Grid>
         </Grid>
-        {Object.keys(quiz).length > 0 && (
-          <QuizContent questions={questions} submitAnswers={submitAnswers} />
-        )}
+
+        <Collapse in={!hasSubmitted}>
+          {Object.keys(quiz).length > 0 && (
+            <QuizContent questions={questions} submitAnswers={submitAnswers} />
+          )}
+        </Collapse>
+
+        {hasSubmitted && <GradeReport gr={gradeReport} />}
       </Container>
     </>
   );

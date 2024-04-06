@@ -16,7 +16,7 @@ class UserService {
     const response = await fetch(`${this.baseUrl}results/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: answers,
+      body: JSON.stringify(answers),
     });
 
     if (!response.ok) throw new Error('Fetch Failed');
