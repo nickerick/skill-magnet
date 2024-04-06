@@ -10,6 +10,7 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
+  Chip,
   TextField,
 } from '@mui/material';
 
@@ -45,9 +46,11 @@ export default function QuestionCard({
   return (
     <Card elevation={3}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Question {question.questionId}
-        </Typography>
+        <Chip
+          color="info"
+          label={'Question ' + question.questionId}
+          sx={{ mb: 1 }}
+        />
         <Typography variant="h5" component="div">
           {question.questionText}
         </Typography>
@@ -97,7 +100,7 @@ export default function QuestionCard({
               id="outlined-basic"
               label="Outlined"
               variant="outlined"
-              value={currentAnswer?.shortAnswer}
+              value={currentAnswer?.shortAnswer || ''}
               onChange={event => {
                 handleTextInput(event.target.value);
               }}

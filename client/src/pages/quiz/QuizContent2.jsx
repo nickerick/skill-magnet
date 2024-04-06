@@ -4,30 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import QuestionCard from '../../components/quiz/QuestionCard';
 
-const questions = [
-  {
-    questionId: 1,
-    questionText: 'What language will we be studying?',
-    questionType: 'SA',
-    correctShortAnswer: 'python',
-    options: [],
-  },
-  {
-    questionId: 2,
-    questionText: 'What year was python invented?',
-    questionType: 'MCQ',
-    correctShortAnswer: 'N/A',
-    options: [
-      { optionId: 1, optionText: '2001', isCorrect: false },
-      { optionId: 2, optionText: '1990', isCorrect: false },
-      { optionId: 3, optionText: '1998', isCorrect: false },
-      { optionId: 4, optionText: '1991', isCorrect: true },
-    ],
-  },
-];
-
-console.log();
-export default function QuizContent() {
+export default function QuizContent({ questions, submitAnswers }) {
   const [activeQuestionIndex, setActiveQuestionIndex] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
   const [userAnswers, setUserAnswers] = React.useState([]);
@@ -42,18 +19,7 @@ export default function QuizContent() {
     setActiveQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
   };
 
-  const handleComplete = () => {
-    setCompleted(prevCompleted => ({
-      ...prevCompleted,
-      [activeQuestionIndex]: true,
-    }));
-    handleNext();
-  };
-
-  const handleReset = () => {
-    setActiveQuestionIndex(0);
-    setCompleted({});
-  };
+  const handleComplete = () => {};
 
   const updateAnswer = newAnswer => {
     setUserAnswers(prevAnswers => {
@@ -76,17 +42,12 @@ export default function QuizContent() {
 
   const isLastQuestion = () => activeQuestionIndex === questions.length - 1;
   const allQuestionsCompleted = () =>
-    Object.keys(completed).length === questions.length;
+    Object.keys(userAnswers).length === questions.length;
 
-  //   console.log(
-  //     userAnswers.find(
-  //       answer => answer.questionId === questions[activeQuestionIndex].questionId,
-  //     ),
-  //   );
   return (
     <Box sx={{ width: '100%' }}>
       {/* Question Display */}
-      <React.Fragment>
+      <>
         <QuestionCard
           question={questions[activeQuestionIndex]}
           updateAnswer={updateAnswer}
@@ -106,7 +67,7 @@ export default function QuizContent() {
             Back
           </Button>
           <Box sx={{ flex: '1 1 auto' }} />
-          {isLastQuestion() && allQuestionsCompleted() ? (
+          {/* {isLastQuestion() && allQuestionsCompleted() ? (
             <Typography sx={{ mt: 2, mb: 1 }}>
               All questions answered - you&apos;re finished
             </Typography>
@@ -114,20 +75,22 @@ export default function QuizContent() {
             <Button onClick={handleNext} sx={{ mr: 1 }}>
               Next
             </Button>
-          )}
-          {activeQuestionIndex !== questions.length - 1 &&
-            !completed[activeQuestionIndex] && (
-              <Button onClick={handleComplete}>Submit</Button>
-            )}
-        </Box>
-      </React.Fragment>
+          )} */}
 
-      {/* Reset Quiz */}
-      {allQuestionsCompleted() && (
-        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-          <Button onClick={handleReset}>Reset Quiz</Button>
+          <Button
+            disabled={isLastQuestion()}
+            onClick={handleNext}
+            sx={{ mr: 1 }}
+          >
+            Next
+          </Button>
+          {allQuestionsCompleted() && (
+            <Button onClick={() => submitAnswers(userAnswers)}>
+              Submit Quiz
+            </Button>
+          )}
         </Box>
-      )}
+      </>
     </Box>
   );
 }

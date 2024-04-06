@@ -1,52 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Container,
   Grid,
   Paper,
   Typography,
+  Chip,
   Stepper,
   Step,
   StepLabel,
   StepButton,
 } from '@mui/material';
-import QuestionCard from '../../components/quiz/QuestionCard';
 import QuizContent from './QuizContent2';
-
+import QuizService from '../../services/QuizService';
 export default function Quiz() {
-  const steps = ['Q1', 'Q2', 'Q3'];
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+  let { quizId } = useParams();
+  const [quiz, setQuiz] = useState({});
+  const [questions, setQuestions] = useState([]);
+  const [gradeReport, setGradeReport] = useState({});
 
-  const isStepSkipped = step => {
-    return skipped.has(step);
+  const formatDateString = dateString => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+    const year = date.getFullYear();
+
+    return `${month}-${day}-${year}`;
   };
 
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const quizData = await QuizService.getQuiz(quizId);
+        setQuiz(quizData);
+        setQuestions(quizData.questions);
+      } catch (error) {
+        alert('ERROR: failed to fetch quiz');
+      }
+    };
+
+    fetchQuiz();
+  }, []);
+
+  const submitAnswers = async userAnswers => {
+    try {
+      const answerBody = {
+        userId: 1, // hardcoded user id
+        quizId: quiz.quizId,
+        answers: userAnswers,
+      };
+      console.log(answerBody);
+      const gr = await QuizService.submitQuizResponses(answerBody);
+      setGradeReport(gr);
+    } catch (error) {
+      alert('ERROR: failed to submit answers');
     }
-
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-    setSkipped(prevSkipped => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   return (
@@ -55,17 +63,27 @@ export default function Quiz() {
         <Grid container>
           <Grid item xs={12}>
             <Paper
-              sx={{ borderRadius: 2, width: '100vh', textAlign: 'center' }}
+              sx={{
+                m: 1,
+                borderRadius: 2,
+                width: '100vh',
+                textAlign: 'center',
+              }}
             >
-              <Typography variant="h4">Quiz Title 4</Typography>
-              <Typography variant="h6">This is the quiz description</Typography>
-              <Typography variant="body1">For: Lesson Title</Typography>
-              <Typography variant="body1">created at</Typography>
+              <Typography variant="h4">{quiz.title} </Typography>
+              <Typography variant="h6">{quiz.description}</Typography>
+
+              <Chip
+                variant="filled"
+                label={'Created at ' + formatDateString(quiz.createdAt)}
+                sx={{ m: 1 }}
+              />
             </Paper>
           </Grid>
         </Grid>
-
-        <QuizContent />
+        {Object.keys(quiz).length > 0 && (
+          <QuizContent questions={questions} submitAnswers={submitAnswers} />
+        )}
       </Container>
     </>
   );
