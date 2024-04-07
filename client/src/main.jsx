@@ -28,10 +28,11 @@ const router = createBrowserRouter([
         path: 'marketplace',
         element: <Marketplace />,
       },
-      {
-        path: 'example',
-        element: <Example />,
-      },
+      // Hide path from public
+      // {
+      //   path: 'example',
+      //   element: <Example />,
+      // },
       {
         path: 'creatorstudio',
         element: <CreatorStudio />,
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         element: <MyCourses />,
       },
       {
-        path: 'courseviewer',
+        path: 'courseviewer/:courseId',
         element: <CourseViewer />,
       },
     ],
