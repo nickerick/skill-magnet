@@ -58,6 +58,23 @@ class UserService {
     });
     return await response.json();
   }
+
+  /**
+   * reference https://github.com/nickerick/skill-magnet/pull/44
+   * Second json block under POST /question
+   *
+   * for what questions param needs to look like
+   * @param {*} questions
+   */
+  async createQuestions(questions) {
+    const response = await fetch(`${this.baseUrl}results/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(questions),
+    });
+
+    return await response.json();
+  }
 }
 
 export default new UserService();

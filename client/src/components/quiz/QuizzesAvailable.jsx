@@ -4,12 +4,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   AccordionDetails,
   AccordionSummary,
-  AccordionActions,
   Box,
   Accordion,
-  Button,
   Typography,
+  Stack,
 } from '@mui/material';
+import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 
 export default function QuizzesAvailable({ lessonId }) {
   const [quizzes, setQuizzes] = useState([]);
@@ -36,13 +36,18 @@ export default function QuizzesAvailable({ lessonId }) {
             aria-controls="panel3-content"
             id="panel3-header"
           >
-            Available Quizzes
+            <Typography variant="h6">
+              Available Quizzes for this Lesson
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             {quizzes.map(quiz => (
-              <a href={'/quiz/' + quiz.quizId}>
-                <Typography>{quiz.title}</Typography>
-              </a>
+              <Stack direction={'row'} alignContent={'center'}>
+                <ElectricBoltIcon />
+                <a href={'/quiz/' + quiz.quizId}>
+                  <Typography>{quiz.title}</Typography>
+                </a>
+              </Stack>
             ))}
           </AccordionDetails>
         </Accordion>

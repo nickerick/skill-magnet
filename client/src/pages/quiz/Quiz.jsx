@@ -6,13 +6,9 @@ import {
   Paper,
   Typography,
   Chip,
-  Stepper,
-  Step,
-  StepLabel,
-  StepButton,
   Collapse,
 } from '@mui/material';
-import QuizContent from './QuizContent2';
+import QuizContent from './QuizContent';
 import QuizService from '../../services/QuizService';
 import GradeReport from '../../components/quiz/GradeReport';
 
