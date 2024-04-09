@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import LessonCard from '../../components/lessoncard/LessonCard.jsx';
 import VideoService from '../../services/VideoService.js';
 import CourseService from '../../services/CourseService';
-
+import QuizzesAvailable from '../../components/quiz/QuizzesAvailable.jsx';
+import { Box, Container } from '@mui/material';
 export default function CourseViewer() {
   let { courseId } = useParams();
   const [course, setCourse] = useState(null);
@@ -69,6 +70,12 @@ export default function CourseViewer() {
           <video src={videoUrl} width="1100" height="619" controls></video>
         </div>
       </div>
+
+      {course !== null && (
+        <QuizzesAvailable
+          lessonId={course?.lessons[selectedLessonNum - 1]?.id}
+        />
+      )}
     </div>
   );
 }

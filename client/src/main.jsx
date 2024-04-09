@@ -15,6 +15,8 @@ import MyCourses from './pages/mycourses/MyCourses.jsx';
 import CourseViewer from './pages/courseviewer/CourseViewer.jsx';
 import CreateNewCourse from './pages/createnewcourse/CreateNewCourse.jsx'; 
 import EditExistingCourse from './pages/editexistingcourse/EditExistingCourse.jsx';
+import Quiz from './pages/quiz/Quiz.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -53,9 +55,13 @@ const router = createBrowserRouter([
       {
         path: 'editexistingcourse',
         element: <EditExistingCourse />, 
+      },
+      {
+        path: 'quiz/:quizId',
+        element: <Quiz />,
       }
-    ],
-  },
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -171,7 +171,7 @@ public class DataInitializer implements CommandLineRunner {
             //Second quiz object
 
             Quiz quiz2 = new Quiz();
-            quiz2.setTitle("Overview Quiz");
+            quiz2.setTitle("Hello World Quiz");
             quiz2.setDescription("Check Your Understanding - Hello, World");
             quiz2.setLesson(lesson2);
             quizRepository.save(quiz2);
