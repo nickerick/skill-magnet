@@ -1,9 +1,7 @@
-.header-name {
+.small-header-name {
     color: #181d31;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     padding: 1%;
     white-space: nowrap;
-    margin-top: 42px;
-    margin-bottom: 40px; 
 }

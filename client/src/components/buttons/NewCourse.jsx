@@ -7,12 +7,12 @@ export const NewCourse = () => {
     return (
         <div className='new-course'>
             <div className='container'>
-            <Link to={'createnewcourse'} className="custom-button">
                 <div className='button'>
+                <Link to={'/createnewcourse'} className="custom-button">
                     <img src={plussign} className="plus-sign" alt="plus sign" />
+                </Link>
                 </div>
-            </Link>
-                <Link to={`createnewcourse`} style={{ textDecoration: 'none', textTransform: 'none' }}>
+                <Link to={`/createnewcourse`} style={{ textDecoration: 'none', textTransform: 'none' }}>
                     <Header headerName="Create New Course" />
                 </Link>
             </div>

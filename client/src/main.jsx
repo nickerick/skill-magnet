@@ -14,6 +14,9 @@ import CreatorStudio from './pages/creatorstudio/CreatorStudio.jsx';
 import MyCourses from './pages/mycourses/MyCourses.jsx';
 import CourseViewer from './pages/courseviewer/CourseViewer.jsx';
 import LoginSignup from './pages/loginsignup/LoginSignup.jsx'
+import CreateNewCourse from './pages/createnewcourse/CreateNewCourse.jsx'; 
+import EditExistingCourse from './pages/editexistingcourse/EditExistingCourse.jsx';
+import Quiz from './pages/quiz/Quiz.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,10 +32,11 @@ const router = createBrowserRouter([
         path: 'marketplace',
         element: <Marketplace />,
       },
-      {
-        path: 'example',
-        element: <Example />,
-      },
+      // Hide path from public
+      // {
+      //   path: 'example',
+      //   element: <Example />,
+      // },
       {
         path: 'creatorstudio',
         element: <CreatorStudio />,
@@ -42,15 +46,27 @@ const router = createBrowserRouter([
         element: <MyCourses />,
       },
       {
-        path: 'courseviewer',
+        path: 'courseviewer/:courseId',
         element: <CourseViewer />,
       },
       {
         path: 'loginsignup',
         element: <LoginSignup />,
       },
-    ],
-  },
+      {
+        path: 'createnewcourse', 
+        element: <CreateNewCourse />,
+      }, 
+      {
+        path: 'editexistingcourse',
+        element: <EditExistingCourse />, 
+      },
+      {
+        path: 'quiz/:quizId',
+        element: <Quiz />,
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

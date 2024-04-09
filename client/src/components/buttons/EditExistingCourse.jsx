@@ -7,12 +7,12 @@ export const EditExistingCourse = () => {
     return (
         <div className='new-course'>
             <div className='container'>
-                <Link to={'editexistingcourse'} className="custom-button">
+                <Link to={'/editexistingcourse'} className="custom-button">
                     <div className='button'>
                         <img src={plussign} className="plus-sign" alt="plus sign" />
                     </div>
                 </Link>
-                <Link to={`editexistingcourse`} style={{ textDecoration: 'none', textTransform: 'none' }}>
+                <Link to={`/editexistingcourse`} style={{ textDecoration: 'none', textTransform: 'none' }}>
                     <Header headerName="Edit Existing Course" />
                 </Link>
             </div>

@@ -1,80 +1,69 @@
-import React, { useState } from 'react';
+import './CourseViewer.css';
+import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import LessonCard from '../../components/lessoncard/LessonCard.jsx';
 import VideoService from '../../services/VideoService.js';
-import './CourseViewer.css';
-
+import CourseService from '../../services/CourseService';
+import QuizzesAvailable from '../../components/quiz/QuizzesAvailable.jsx';
+import { Box, Container } from '@mui/material';
 export default function CourseViewer() {
-  const [progress, setProgress] = useState(0);
+  let { courseId } = useParams();
+  const [course, setCourse] = useState(null);
+  const [selectedLessonNum, selectLessonNum] = useState(1);
   const [videoUrl, setVideoUrl] = useState('');
-  const [selectedLesson, setSelectedLesson] = useState(null);
 
-  const loadVideo = videoName => {
+  useEffect(() => {
+    const fetchEnrolledCourses = async () => {
+      try {
+        const courseData = await CourseService.getCourse(courseId);
+        setCourse(courseData);
+        loadVideo(courseData?.id, courseData?.lessons[0]?.id);
+      } catch (error) {
+        alert('ERROR: Failed to fetch current course');
+      }
+    };
+
+    fetchEnrolledCourses();
+  }, []);
+
+  const loadVideo = (courseId, lessonId) => {
+    var videoName = `c${courseId}.l${lessonId}.mp4`;
     var videoUrl = VideoService.getVideoUrl(videoName);
     setVideoUrl(videoUrl);
   };
 
-  const handleButtonClick = ()=>{
-    if(progress < 100){
-      setProgress(progress + 20);
-    }
-  }
-  const handleButtonReset = ()=>{
-    setProgress(0);
-  }
-
-  const handleLessonClick = lessonTitle => {
-    setSelectedLesson(lessonTitle);
-    loadVideo(lessonTitle);
-  }
+  const handleSelectLesson = lesson => {
+    selectLessonNum(lesson.videoNumber);
+    loadVideo(course.id, lesson.id);
+  };
 
   return (
     <div className="course-view">
-
       <div className="progress-title-bar">
         <div className="progress-title">Course Progress</div>
 
         <div className="course-progress">
           <div className="progress-bar">
-            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
-          </div>
-
-          {/*These buttons are temporary to be able to check progress bar*/}
-          <div className="button-container">
-            <button onClick={handleButtonClick}>temp progress button</button>
-            <button onClick={handleButtonReset}>temp reset button</button>
+            <div
+              className="progress-bar-fill"
+              style={{ width: `${course?.progress ?? 0}%` }}
+            ></div>
           </div>
         </div>
 
-        <div className="progress-label">{progress}%</div>
-
+        <div className="progress-label">{course?.progress ?? 0}%</div>
       </div>
 
       <div className="lessons-and-video">
         <div className="lessons-list">
-          <LessonCard
-            lessonTitle="Intro to Web Programming 1"
-            completionStatus="[Progress %]"
-            isSelected={selectedLesson === "Intro to Web Programming 1"}
-            onClick={() => handleLessonClick("Intro to Web Programming 1")}
-          />
-          <LessonCard
-            lessonTitle="Intro to Web Programming 2"
-            completionStatus="[Progress %]"
-            isSelected={selectedLesson === "Intro to Web Programming 2"}
-            onClick={() => handleLessonClick("Intro to Web Programming 2")}
-          />
-          <LessonCard
-            lessonTitle="Intro to Web Programming 3"
-            completionStatus="[Progress %]"
-            isSelected={selectedLesson === "Intro to Web Programming 3"}
-            onClick={() => handleLessonClick("Intro to Web Programming 3")}
-          />
-          <LessonCard
-            lessonTitle="Intro to Web Programming 4"
-            completionStatus="[Progress %]"
-            isSelected={selectedLesson === "Intro to Web Programming 4"}
-            onClick={() => handleLessonClick("Intro to Web Programming 4")}
-          />
+          {course?.lessons?.map(lesson => (
+            <LessonCard
+              lessonTitle={lesson.title}
+              completionStatus="" // We only have course completion on courses rather than lessons
+              isSelected={lesson.videoNumber === selectedLessonNum}
+              onClick={() => handleSelectLesson(lesson)}
+            />
+          ))}
         </div>
 
         <div className="video-player">
@@ -82,6 +71,11 @@ export default function CourseViewer() {
         </div>
       </div>
 
+      {course !== null && (
+        <QuizzesAvailable
+          lessonId={course?.lessons[selectedLessonNum - 1]?.id}
+        />
+      )}
     </div>
   );
 }
