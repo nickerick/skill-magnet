@@ -1,24 +1,46 @@
+import { useEffect, useState } from 'react';
 import MyCourseCard from '../../components/mycoursescard/MyCourseCard.jsx';
-import './MyCourses.css'
 import Header from '../../components/Header.jsx';
+import './MyCourses.css';
+import CourseService from '../../services/CourseService';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyCourses() {
-  return(
+  const navigate = useNavigate();
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchEnrolledCourses = async () => {
+      try {
+        const coursesData = await CourseService.getEnrolledCourses(1);
+        console.log(coursesData);
+        setCourses(coursesData);
+      } catch (error) {
+        alert('ERROR: Failed to fetch enrolled courses');
+      }
+    };
+
+    fetchEnrolledCourses();
+  }, []);
+
+  return (
     <div className="my-courses">
       <div className="enrolled-courses-title"><Header headerName="Enrolled Courses" /></div>
 
       <div className="mycourses-list-container">
         <div className="mycourses-list">
-          <MyCourseCard courseTitle="Course 1" imageUrl="" instructorName="Instructor 1" progress={100}/>
-          <MyCourseCard courseTitle="Course 2" imageUrl="" instructorName="Instructor 2" progress={75}/>
-          <MyCourseCard courseTitle="Course 3" imageUrl="" instructorName="Instructor 3" progress={50}/>
-          <MyCourseCard courseTitle="Course 4" imageUrl="" instructorName="Instructor 4" progress={30}/>
-          <MyCourseCard courseTitle="Course 5" imageUrl="" instructorName="Instructor 5" progress={0}/>
-          <MyCourseCard courseTitle="Course 6" imageUrl="" instructorName="Instructor 6" progress={10}/>
-
+          {courses.map(c => (
+            <MyCourseCard
+              key={c.enrolledCourse.id}
+              courseTitle={c.enrolledCourse.title}
+              imageUrl=""
+              instructorName={c.enrolledCourse.description}
+              progress={c.progress}
+              handleClick={() => navigate(`/courseviewer/${c.id}`)}
+            />
+          ))}
         </div>
       </div>
-
     </div>
   );
 }
