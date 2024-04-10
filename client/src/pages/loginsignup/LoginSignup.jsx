@@ -35,7 +35,6 @@ const LoginSignup = () => {
 
   const handleSubmit = async () => {
     try {
-      window.alert('username: ' + username + ' password: ' + password);
       if (action === "Login") {
         const user = await UserService.loginUser(username, password);
         console.log('Logged in user:', user);
