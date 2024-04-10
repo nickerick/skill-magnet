@@ -27,11 +27,9 @@ export const NavBar = () => {
 
       <div className="login-buttons">
         <Button variant="contained">
-          <Link to={`login`}> Login </Link>
+          <Link to={`loginsignup`}> Login/Sign Up</Link>
         </Button>
-        <Button variant="contained">
-          <Link to={`signup`}> Sign up </Link>
-        </Button>
+
       </div>
 
     </div>

@@ -1,0 +1,76 @@
+.loginsignup {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 200px;
+    padding-bottom: 30px;
+}
+
+.loginsignup-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.signup-text {
+    color: #181d31;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.underline {
+    width: 80px;
+    height: 6px;
+    background: #181d31;
+    border-radius: 9px;
+}
+
+.inputs {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 50px;
+    background: #eaeaea;
+    border-radius: 6px;
+}
+
+.input img {
+    margin: 0px 30px;
+}
+
+.input input {
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #7f7e7e;
+    font-size: 20px;
+}
+
+.submit-container {
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+}
+
+.loginsignup .MuiButton-contained {
+    background-color: #181d31;
+    border-radius: 50px;
+    margin-left: 40px;
+}
+
+.loginsignup .MuiButton-contained:hover {
+    background-color: #7f7e7e;
+}

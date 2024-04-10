@@ -13,6 +13,7 @@ import './main.css';
 import CreatorStudio from './pages/creatorstudio/CreatorStudio.jsx';
 import MyCourses from './pages/mycourses/MyCourses.jsx';
 import CourseViewer from './pages/courseviewer/CourseViewer.jsx';
+import LoginSignup from './pages/loginsignup/LoginSignup.jsx'
 import CreateNewCourse from './pages/createnewcourse/CreateNewCourse.jsx'; 
 import EditExistingCourse from './pages/editexistingcourse/EditExistingCourse.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: 'courseviewer/:courseId',
         element: <CourseViewer />,
+      },
+      {
+        path: 'loginsignup',
+        element: <LoginSignup />,
       },
       {
         path: 'createnewcourse', 
