@@ -17,6 +17,7 @@ import LoginSignup from './pages/loginsignup/LoginSignup.jsx'
 import CreateNewCourse from './pages/createnewcourse/CreateNewCourse.jsx'; 
 import EditExistingCourse from './pages/editexistingcourse/EditExistingCourse.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
+import { UserProvider } from './UserContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -71,8 +72,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </UserProvider>
   </React.StrictMode>,
 );
