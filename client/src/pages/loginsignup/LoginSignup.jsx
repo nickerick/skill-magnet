@@ -6,12 +6,17 @@ import user_icon from '../../assets/person.png';
 import email_icon from '../../assets/email.png';
 import password_icon from '../../assets/password.png';
 import { Button } from '@mui/material';
+import UserService from '../../services/UserService.js';
+import { useUser } from '/src/UserContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const LoginSignup = () => {
+  const { login } = useUser();
   const [action, setAction] = useState("Sign Up");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const allFieldsFilled = (action === "Sign Up" && username && email && password) ||
     (action === "Login" && username && password);
@@ -28,9 +33,23 @@ const LoginSignup = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = () => {
-    //testing line
-    window.alert("form submitted. username is " + username + " and password is " + password);
+  const handleSubmit = async () => {
+    try {
+      window.alert('username: ' + username + ' password: ' + password);
+      if (action === "Login") {
+        const user = await UserService.loginUser(username, password);
+        console.log('Logged in user:', user);
+
+        login(user.id);
+      } else {
+        const newUser = await UserService.signupUser(username, password);
+        console.log('Signed up user:', newUser);
+        login(newUser.id);
+      }
+      navigate('/');
+    } catch (error) {
+      console.error('ERROR: Error logging in');
+    }
   };
 
   return (

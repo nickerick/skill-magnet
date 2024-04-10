@@ -4,15 +4,17 @@ import Header from '../../components/Header.jsx';
 import './MyCourses.css';
 import CourseService from '../../services/CourseService';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '/src/UserContext.jsx';
 
 export default function MyCourses() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
+  const { userId } = useUser();
 
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
       try {
-        const coursesData = await CourseService.getEnrolledCourses(1);
+        const coursesData = await CourseService.getEnrolledCourses(userId);
         console.log(coursesData);
         setCourses(coursesData);
       } catch (error) {
