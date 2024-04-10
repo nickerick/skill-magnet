@@ -101,6 +101,17 @@ public class DataInitializer implements CommandLineRunner {
             lesson3.setCourse(course1);
             lessonRepository.save(lesson3);
 
+            Course course2 = new Course();
+            course2.setTitle("Drawing For Dummies");
+            course2.setDescription("Learn the basics of drawing. Everyone is invited!");
+            course2.setCategory("Art");
+            courseRepository.save(course2);
+
+            Course course3 = new Course();
+            course3.setTitle("AWS CCP Training");
+            course3.setDescription("Prepare for the AWS CCP Certification test in 2 weeks!");
+            course3.setCategory("Cloud");
+            courseRepository.save(course3);
 
             // Enroll 'Test User' into course 'Python 101'
             Enrolls enrollment1 = new Enrolls();
