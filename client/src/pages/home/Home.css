@@ -38,6 +38,7 @@
     font-family: Georgia, serif;
     padding: 40px;
     color: #181d31;
+    font-size: 40px;
 }
 
 .about-us h3 {
@@ -46,4 +47,38 @@
     width: 800px;
     font-family: Georgia, serif;
     color: #181d31;
+    font-size: 22px;
+    font-weight: normal;
 }
+
+.feature-section {
+    text-align: center;
+    padding: 3em;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.feature {
+    max-width: 300px;
+}
+
+.feature-icon {
+    width: 50px;
+}
+
+.feature-title {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    font-family: serif;
+    color: #181d31;
+    font-size: 20px;
+}
+
+

@@ -5,6 +5,12 @@
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s; /* Add transition for smoother effect */
+}
+
+/* Add hover effect */
+.my-course-card:hover {
+    background-color: #E3e3e4; /* Change to desired hover color */
 }
 
 .my-course-image {
