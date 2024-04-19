@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Home.css';
 import cover from '../../assets/site_background.jpg';
 import enroll_courses_icon from '../../assets/enroll-courses-icon.png';
@@ -8,10 +8,17 @@ import take_quizzes_icon from '../../assets/take-quizzes-icon.png';
 export default function Home() {
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    document.body.style.overflowX = 'hidden';
+    return () => {
+      document.body.style.overflowX = 'auto';
+    };
+  }, []);
+
   return (
     <>
       <div className="homepage-photo">
-        <img src={cover} style={{width: '99vw'}}/>
+        <img src={cover} style={{width: '100vw'}}/>
         <div className="text-card">
           <h1>One stop shop for your learning needs</h1>
           <h2>Educational content and study tools in one place</h2>
