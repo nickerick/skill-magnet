@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <div className="homepage-photo">
-        <img src={cover} style={{width: '100vw'}}/>
+        <img src={cover} style={{width: '99vw'}}/>
         <div className="text-card">
           <h1>One stop shop for your learning needs</h1>
           <h2>Educational content and study tools in one place</h2>
