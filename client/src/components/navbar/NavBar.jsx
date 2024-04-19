@@ -18,9 +18,8 @@ export const NavBar = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const theme = useTheme();
-  console.log(theme);
   const isMatch = useMediaQuery(theme.breakpoints.down('xl'));
-  console.log(isMatch);
+
   return (
     <div className='navbar'>
 
