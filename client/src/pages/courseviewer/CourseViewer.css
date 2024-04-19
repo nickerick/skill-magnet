@@ -54,3 +54,17 @@
     margin-right: 300px;
     margin-top: 60px;
 }
+
+.notepad {
+    margin-bottom: 20px;
+}
+
+.input-box {
+    outline: none;
+    width: 97%;
+    height: 200px;
+    padding: 10px;
+    line-height: 1.6;
+    resize: none;
+    font-size: 16px;
+}
