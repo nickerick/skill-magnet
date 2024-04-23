@@ -1,15 +1,5 @@
 import Header from "../../components/Header";
 import BasicCourseInformation from "../../components/courseinformation/BasicCourseInformation";
-<<<<<<< HEAD
-export default function CreateNewCourse() {
-    return(
-        <div className="create-course">
-            <div ClassName="page-title"><Header headerName="Course Information" /></div>
-            <BasicCourseInformation />
-        </div>
-    ); 
-}
-=======
 import BasicLessonInformation from "../../components/courseinformation/BasicLessonInformation";
 import plusIcon from "../../assets/math-plus-icon.svg";
 import "./CreateNewCourse.css";
@@ -44,5 +34,3 @@ export default function CreateNewCourse() {
         </div>
     );
 }
-
->>>>>>> 1bc83ca (create course button)
