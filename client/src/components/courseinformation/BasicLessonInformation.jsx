@@ -25,13 +25,13 @@ const BasicLessonInformation = () => {
                 <div className="input-group">
                     <SmallHeader headerName={"Lesson Video:"} />
                     <div className="upload-container">
-                      <label htmlFor="lessonVideoFile" className="upload-button">Select File</label>
+                      <label htmlFor="courseThumbnail" className="upload-button">Choose Image</label>
                       <input
                         type="file"
                         id="courseThumbnail"
                         className="file-input"
                       />
-                    </div>
+                  </div>
                 </div>
             </div>
         </div>

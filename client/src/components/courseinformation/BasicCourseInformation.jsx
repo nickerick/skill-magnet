@@ -63,7 +63,6 @@ const BasicCourseInformation = () => {
                         <option value="programming">Programming</option>
                         <option value="design">Design</option>
                         <option value="business">Business</option>
-                        {/* Add more options as needed */}
                     </select>
                 </div>
             </div>

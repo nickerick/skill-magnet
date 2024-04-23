@@ -1,3 +1,16 @@
+.create-course-button {
+    padding: 10px 20px; 
+    background-color: #ADD8E6; 
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease; 
+}
+
 .add-lessons-header {
     display: flex;
     align-items: center;
@@ -13,4 +26,28 @@
 .plus-sign {
     width: 40px; 
     height: 40px;
+}
+
+.create-course-button {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 30px;
+    background-color: #ADD8E6; 
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+    border: none;
+    border-radius: 35px; 
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease;
+}
+
+.create-course-button:hover {
+    background-color: #98B9CD; 
+}
+
+
+.file-input {
+    display: none;
 }

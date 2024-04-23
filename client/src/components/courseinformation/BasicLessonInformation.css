@@ -38,25 +38,24 @@ label {
 }
 
 .file-input {
-    display: none;
-}
-
-.upload-container {
+    display: none; /* Hide the default file input */
+  }
+  
+  .upload-container {
     position: relative;
-}
-
-.upload-button {
-    padding: 15px;
-    border: 2px solid #ccc;
+  }
+  
+  .upload-button {
+    padding: 10px;
+    border: 2px #ccc;
     border-radius: 8px;
     cursor: pointer;
     background-color: #f0f0f0;
-}
-
-.upload-button:focus {
+  }
+  
+  .upload-button:focus {
     outline: none;
-}
-
+  }
 .left-group {
     margin-right: 30px;
 }
