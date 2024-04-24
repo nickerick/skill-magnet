@@ -24,7 +24,7 @@ label {
 }
 
 #courseTitle,
-#courseInformation,
+#courseDescription,
 #courseThumbnail,
 #courseCategory {
   width: 300px;
@@ -34,7 +34,7 @@ label {
   margin-left: 20px; /* Added for consistency */
 }
 
-#courseInformation {
+#courseDescription {
   height: 100px; 
 }
 
@@ -46,7 +46,7 @@ label {
   position: relative;
 }
 
-.upload-button {
+.course-image-upload-button {
   padding: 10px;
   border: 2px #ccc;
   border-radius: 8px;
@@ -54,7 +54,7 @@ label {
   background-color: #f0f0f0;
 }
 
-.upload-button:focus {
+.course-image-upload-button:focus {
   outline: none;
 }
 
