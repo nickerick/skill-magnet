@@ -13,6 +13,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import './NavBar.css';
 import search from '../../assets/search.svg'
+import skillmagnetlogo from '../../assets/skillmagnet-logo.png'
 
 export const NavBar = () => {
 
@@ -23,6 +24,10 @@ export const NavBar = () => {
   console.log(isMatch);
   return (
     <div className='navbar'>
+
+      <Link to={`/`}>
+        <img src={skillmagnetlogo} className="skillmagnetlogo" alt="logo" /> {/* Add your logo image here */}
+      </Link>
 
       <Link style={{color: 'white'}} to={`/`} className="title">SkillMagnet</Link>
 

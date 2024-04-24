@@ -7,12 +7,16 @@
     z-index: 1000;
 }
 
+.skillmagnetlogo {
+    width: 100px;
+
+}
+
 .title {
     font-size: 40px;
     font-weight: bold;
     color: white;
     text-decoration: none;
-    padding: 1%;
     margin-right: 50px;
 }
 
