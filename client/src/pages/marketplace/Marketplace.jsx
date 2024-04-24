@@ -70,7 +70,7 @@ export default function Marketplace() {
             <CourseCard
               key={c.id}
               courseTitle={c.title}
-              imageUrl=""
+              imageUrl={`/images/courses/${c.id}/courseThumbnail.png`}
               instructorName={c.description}
             />
           ))}

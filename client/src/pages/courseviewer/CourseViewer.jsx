@@ -60,6 +60,7 @@ export default function CourseViewer() {
             <LessonCard
               lessonTitle={lesson.title}
               completionStatus="" // We only have course completion on courses rather than lessons
+              imageUrl={`/images/courses/${course.id}/${lesson.id}.png`}
               isSelected={lesson.videoNumber === selectedLessonNum}
               onClick={() => handleSelectLesson(lesson)}
             />
