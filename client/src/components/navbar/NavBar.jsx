@@ -24,7 +24,7 @@ export const NavBar = () => {
     <div className='navbar'>
 
       <Link to={`/`}>
-        <img src={skillmagnetlogo} className="skillmagnetlogo" alt="logo" /> {/* Add your logo image here */}
+        <img src={skillmagnetlogo} className="skillmagnetlogo" alt="logo" />
       </Link>
 
       <Link style={{color: 'white'}} to={`/`} className="title">SkillMagnet</Link>
