@@ -65,7 +65,7 @@ public class CourseController {
      * @return course object || bad request for missing title, category, and/or description
      */
     @PostMapping("/course")
-    public ResponseEntity<?> createCourse(@RequestBody CouI erse course) {
+    public ResponseEntity<?> createCourse(@RequestBody Course course) {
         if (null == course.getTitle() || null == course.getCategory() || null == course.getDescription()) {
             return new ResponseEntity<>("Course does not have all required fields", HttpStatus.BAD_REQUEST);
         }
