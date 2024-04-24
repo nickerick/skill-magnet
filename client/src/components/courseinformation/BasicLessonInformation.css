@@ -24,7 +24,7 @@ label {
     margin-right: 20px;
 }
 
-#lessonTitle,
+.lesson-title-input,
 #lessonVideoFile {
     width: 400px;
     padding: 15px;
@@ -45,7 +45,7 @@ label {
     position: relative;
   }
   
-  .upload-button {
+  .lesson-upload-button {
     padding: 10px;
     border: 2px #ccc;
     border-radius: 8px;
@@ -53,7 +53,7 @@ label {
     background-color: #f0f0f0;
   }
   
-  .upload-button:focus {
+  .lesson-upload-button:focus {
     outline: none;
   }
 .left-group {
