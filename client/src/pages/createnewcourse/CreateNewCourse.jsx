@@ -4,8 +4,13 @@ import BasicCourseInformation from "../../components/courseinformation/BasicCour
 import BasicLessonInformation from "../../components/courseinformation/BasicLessonInformation";
 import plusIcon from "../../assets/math-plus-icon.svg";
 import "./CreateNewCourse.css";
+import CourseService from '../../services/CourseService.js';
+import videoService from '../../services/VideoService';
+import LessonService from '../../services/LessonService.js';
 
 export default function CreateNewCourse() {
+    const [uploading, setUploading] = useState(false);
+
     const [courseInfo, setCourseInfo] = useState({
         lessons: [],
         title: '',
@@ -51,43 +56,56 @@ export default function CreateNewCourse() {
         setLessons(newLessons);
     };
 
-    const handleTitleChange = (e, lessonId) => {
-        const newTitle = e.target.value;
-        const newLessons = lessons.map(lesson => {
-            if (lesson.id === lessonId) {
-                return {
-                    ...lesson,
-                    title: newTitle
+    const handleCreateCourse = async () => {
+
+        setUploading(true);
+
+        try {
+            const uploadPromises = lessons.map(lesson => videoService.uploadVideo(lesson.selectedFile, lesson.title));
+
+            const uploadResults = await Promise.all(uploadPromises);
+
+            const videoUrls = uploadResults.map(result => videoService.getVideoUrl(result));
+
+            const coursePayload = {
+                title: courseInfo.title,
+                description: courseInfo.description,
+                category: courseInfo.category
+            };
+
+            const createdCourse = await CourseService.createCourse(coursePayload);
+
+            const lessonPromises = lessons.map((lesson, index) => {
+                const lessonPayload = {
+                    title: lesson.title,
+                    courseId: createdCourse.id,
+                    videoLink: videoUrls[index],
+                    videoType: "SELF_HOSTED",
+                    videoNumber: index + 1
                 };
-            }
-            return lesson;
-        });
-        setLessons(newLessons);
+                return LessonService.createLesson(lessonPayload);
+            });
+
+            await Promise.all(lessonPromises);
+            setUploading(false);
+            console.log("Course creation successful!");
+            window.location.reload()
+
+        } catch (error) {
+            console.error("Error creating course or lessons:", error);
+            setUploading(false);
+        }
     };
-
-
-
-    const handleCreateCourse = () => {
-       //testing
-        //const lessonTitles = lessons.map(lesson => lesson.title);
-        //const lessonFiles = lessons.map(lesson => lesson.selectedFile);
-
-        const updatedCourseInfo = {
-            ...courseInfo,
-            lessons: lessons.map(lesson => ({
-                title: lesson.title,
-                videoLink: lesson.videoLink
-            }))
-        };
-
-        console.log(updatedCourseInfo);
-        // console.log('Lesson Titles:', lessonTitles);
-        // console.log('Lesson Video Files:', lessonFiles);
-    };
-
 
     return (
       <div>
+          <div className={`upload-modal ${uploading ? 'show-modal' : ''}`}>
+              <div className="upload-modal-content">
+                  <h2>Uploading Course...</h2>
+              </div>
+          </div>
+
+
           <div className="create-course">
               <div className="page-title">
                   <Header headerName="Course Information" />
