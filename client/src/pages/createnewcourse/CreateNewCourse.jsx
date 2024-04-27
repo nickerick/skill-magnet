@@ -57,45 +57,47 @@ export default function CreateNewCourse() {
     };
 
     const handleCreateCourse = async () => {
-
         setUploading(true);
 
         try {
-            const uploadPromises = lessons.map(lesson => videoService.uploadVideo(lesson.selectedFile, lesson.title));
-
-            const uploadResults = await Promise.all(uploadPromises);
-
-            const videoUrls = uploadResults.map(result => videoService.getVideoUrl(result));
-
+            //Create the course
             const coursePayload = {
                 title: courseInfo.title,
                 description: courseInfo.description,
                 category: courseInfo.category
             };
-
             const createdCourse = await CourseService.createCourse(coursePayload);
 
+            //Create lessons
             const lessonPromises = lessons.map((lesson, index) => {
                 const lessonPayload = {
                     title: lesson.title,
                     courseId: createdCourse.id,
-                    videoLink: videoUrls[index],
+                    videoLink: "SELF_HOSTED",
                     videoType: "SELF_HOSTED",
                     videoNumber: index + 1
                 };
                 return LessonService.createLesson(lessonPayload);
             });
+            const createdLessons = await Promise.all(lessonPromises);
 
-            await Promise.all(lessonPromises);
+            //Upload lesson videos
+            const uploadPromises = createdLessons.map((lesson, index) => {
+                const fileName = `c${createdCourse.id}.l${lesson.id}.mp4`;
+                return videoService.uploadVideo(lessons[index].selectedFile, fileName);
+            });
+            await Promise.all(uploadPromises);
+
             setUploading(false);
             console.log("Course creation successful!");
-            window.location.reload()
+            window.location.reload();
 
         } catch (error) {
             console.error("Error creating course or lessons:", error);
             setUploading(false);
         }
     };
+
 
     return (
       <div>
