@@ -47,7 +47,7 @@ export default function Quiz() {
   const submitAnswers = async userAnswers => {
     try {
       const answerBody = {
-        userId: userId, //this part is broken and is null
+        userId: 1, //hardwired to 1
         quizId: quiz.quizId,
         answers: userAnswers,
       };
