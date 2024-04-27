@@ -36,7 +36,7 @@ export default function MyCourses() {
               key={c.enrolledCourse.id}
               courseTitle={c.enrolledCourse.title}
               imageUrl={`/images/courses/${c.id}/courseThumbnail.png`}
-              instructorName={c.enrolledCourse.description}
+              description={c.enrolledCourse.description}
               progress={c.progress}
               handleClick={() => navigate(`/courseviewer/${c.id}`)}
             />

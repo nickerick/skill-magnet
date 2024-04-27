@@ -3,7 +3,7 @@ import './MyCourseCard.css';
 export default function MyCourseCard({
   courseTitle,
   imageUrl,
-  instructorName,
+  description,
   progress,
   handleClick,
 }) {
@@ -13,7 +13,7 @@ export default function MyCourseCard({
         <img src={imageUrl} />
       </div>
       <div className="my-course-title">{courseTitle}</div>
-      <div className="my-course-instructor">{instructorName}</div>
+      <div className="my-course-instructor">{description}</div>
 
       <div className="my-course-progress-bar">
         <div
