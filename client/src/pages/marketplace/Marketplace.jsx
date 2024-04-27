@@ -69,9 +69,10 @@ export default function Marketplace() {
           {courses.slice(startIndex, startIndex + numVisibleCards).map(c => (
             <CourseCard
               key={c.id}
+              courseId={c.id}
               courseTitle={c.title}
               imageUrl={`/images/courses/${c.id}/courseThumbnail.png`}
-              instructorName={c.description}
+              description={c.description}
             />
           ))}
         </div>

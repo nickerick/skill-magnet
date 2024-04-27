@@ -11,6 +11,7 @@ import {
 import QuizContent from './QuizContent';
 import QuizService from '../../services/QuizService';
 import GradeReport from '../../components/quiz/GradeReport';
+import { useUser } from '/src/UserContext.jsx';
 
 export default function Quiz() {
   let { quizId } = useParams();
@@ -18,6 +19,7 @@ export default function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [gradeReport, setGradeReport] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const { userId } = useUser();
 
   const formatDateString = dateString => {
     const date = new Date(dateString);
@@ -45,7 +47,7 @@ export default function Quiz() {
   const submitAnswers = async userAnswers => {
     try {
       const answerBody = {
-        userId: 1, // hardcoded user id
+        userId: 1, //hardwired to 1
         quizId: quiz.quizId,
         answers: userAnswers,
       };

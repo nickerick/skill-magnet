@@ -1,3 +1,65 @@
+.upload-modal {
+    display: none
+}
+
+.upload-modal.show-modal,
+.upload-modal.show-modal.upload-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: block;
+}
+
+
+.upload-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.upload-success-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ADD8E6;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+}
+
+.upload-success-popup.show-popup {
+    display: block;
+}
+
+.enroll-fail-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+}
+
+.enroll-fail-popup.show-popup {
+    display: block;
+}
+
+
 .create-course-button {
     padding: 10px 20px; 
     background-color: #ADD8E6; 
