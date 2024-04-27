@@ -4,6 +4,9 @@ import EnrollsService from '../services/EnrollsService.js';
 
 export default function CourseCard({ courseId, courseTitle, imageUrl, description }) {
   const [showPopup, setShowPopup] = useState(false);
+  const [showEnrollSuccess, setShowEnrollSuccess] = useState(false);
+  const [showAlreadyEnrolled, setShowAlreadyEnrolled] = useState(false);
+
 
   const handleEnrollClick = () => {
     setShowPopup(true);
@@ -20,15 +23,22 @@ export default function CourseCard({ courseId, courseTitle, imageUrl, descriptio
         };
         console.log(user_course);
         await EnrollsService.enrollUser(user_course);
-        window.alert('Successfully enrolled in course.');
+        setShowEnrollSuccess(true);
+        setTimeout(() => {
+          setShowEnrollSuccess(false);
+        }, 1250);
       }
       else {
-        window.alert('You are already enrolled in this course.');
+        setShowAlreadyEnrolled(true);
+        setTimeout(() => {
+          setShowAlreadyEnrolled(false);
+        }, 1250);
       }
     } catch (error) {
       alert('ERROR: Failed to enroll user');
     }
   };
+
 
   const handleEnrollCancel = () => {
     setShowPopup(false);
@@ -58,6 +68,19 @@ export default function CourseCard({ courseId, courseTitle, imageUrl, descriptio
           </div>
         </div>
       )}
+
+      {showEnrollSuccess && (
+        <div className="upload-success-popup show-popup">
+          <h2>Successfully enrolled in course.</h2>
+        </div>
+      )}
+
+      {showAlreadyEnrolled && (
+        <div className="enroll-fail-popup show-popup">
+          <h2>You are already enrolled in this course.</h2>
+        </div>
+      )}
+
     </div>
   );
 }
