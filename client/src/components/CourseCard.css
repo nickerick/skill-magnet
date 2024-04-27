@@ -1,10 +1,15 @@
 .course-card {
-  width:400px;
+  width: 400px;
   margin-bottom: 20px;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.course-card:hover {
+  background-color: #E3e3e4;
 }
 
 .course-image {
@@ -49,5 +54,3 @@
 .enroll-button:hover {
   background-color: #85c5db;
 }
-
-
