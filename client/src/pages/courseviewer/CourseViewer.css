@@ -68,3 +68,7 @@
     resize: none;
     font-size: 16px;
 }
+
+.quizzes-container {
+    margin-bottom: 30px;
+}

@@ -107,11 +107,13 @@ export default function CourseViewer() {
         </Accordion>
       </Box>
 
+      <div className="quizzes-container">
       {course !== null && (
         <QuizzesAvailable
           lessonId={course?.lessons[selectedLessonNum - 1]?.id}
         />
       )}
+      </div>
 
     </div>
   );
