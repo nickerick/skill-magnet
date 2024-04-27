@@ -33,6 +33,19 @@ class CourseService {
 
     return await response.json();
   }
+
+  async createCourse(course){
+    const response = await fetch(`${this.baseUrl}course`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(course)
+    });
+
+    if (!response.ok) throw new Error('Fetch failed');
+
+    return await response.json();
+  }
+
 }
 
 export default new CourseService();

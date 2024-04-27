@@ -19,14 +19,12 @@ export const NavBar = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const theme = useTheme();
-  console.log(theme);
   const isMatch = useMediaQuery(theme.breakpoints.down('xl'));
-  console.log(isMatch);
   return (
     <div className='navbar'>
 
       <Link to={`/`}>
-        <img src={skillmagnetlogo} className="skillmagnetlogo" alt="logo" /> {/* Add your logo image here */}
+        <img src={skillmagnetlogo} className="skillmagnetlogo" alt="logo" />
       </Link>
 
       <Link style={{color: 'white'}} to={`/`} className="title">SkillMagnet</Link>
