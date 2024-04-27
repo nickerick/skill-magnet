@@ -5,8 +5,8 @@
 
 .courses-list {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap onto the next row */
-    justify-content: space-between; /* Distribute items evenly along the main axis */
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .header-and-filters-container {

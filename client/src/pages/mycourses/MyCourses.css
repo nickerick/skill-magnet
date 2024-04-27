@@ -1,10 +1,10 @@
 .mycourses-list-container {
-  max-width: 1450px; /* Adjust the maximum width as needed */
-  margin: 0 auto; /* Center the container */
+  max-width: 1450px;
+  margin: 0 auto;
 }
 
 .mycourses-list {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap onto the next row */
-  justify-content: space-between; /* Adjust spacing between items */
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
