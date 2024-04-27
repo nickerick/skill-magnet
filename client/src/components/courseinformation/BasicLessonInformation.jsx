@@ -4,12 +4,18 @@ import SmallHeader from '../SmallHeader';
 
 const BasicLessonInformation = ({ lessonId, handleLessonInfoChange, handleFileInputChange }) => {
   const [title, setTitle] = useState('');
+  const [videoLink, setVideoLink] = useState('');
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
     handleLessonInfoChange(lessonId, { title: e.target.value });
+  };
+
+  const handleVideoURLChange = (e) => {
+    setVideoLink(e.target.value);
+    handleLessonInfoChange(lessonId, { videoURL: e.target.value });
   };
 
   const handleFileChange = (e) => {
@@ -48,6 +54,17 @@ const BasicLessonInformation = ({ lessonId, handleLessonInfoChange, handleFileIn
               onChange={handleFileChange}
             />
           </div>
+
+          <SmallHeader headerName={'or'} />
+
+          <input
+            type="text"
+            id={`lessonVideoURL${lessonId}`}
+            value={videoLink}
+            onChange={(e) => handleVideoURLChange(e)}
+            className="lesson-videoURL-input"
+          />
+
         </div>
       </div>
     </div>

@@ -33,12 +33,20 @@ label {
     margin-left: 20px;
 }
 
+.lesson-videoURL-input {
+    width: 222px;
+    padding: 15px;
+    border: 2px solid;
+    border-radius: 20px;
+    margin-left: 20px;
+}
+
 #courseInformation {
     height: 150px;
 }
 
 .file-input {
-    display: none; /* Hide the default file input */
+    display: none;
   }
   
   .upload-container {

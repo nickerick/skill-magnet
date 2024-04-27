@@ -69,7 +69,6 @@ export default function CreateNewCourse() {
         setUploading(true);
 
         try {
-            //Create the course
             const coursePayload = {
                 title: courseInfo.title,
                 description: courseInfo.description,
@@ -77,25 +76,37 @@ export default function CreateNewCourse() {
             };
             const createdCourse = await CourseService.createCourse(coursePayload);
 
-            //Create lessons
-            const lessonPromises = lessons.map((lesson, index) => {
-                const lessonPayload = {
-                    title: lesson.title,
-                    courseId: createdCourse.id,
-                    videoLink: "SELF_HOSTED",
-                    videoType: "SELF_HOSTED",
-                    videoNumber: index + 1
-                };
-                return LessonService.createLesson(lessonPayload);
+            const lessonPromises = lessons.map(async (lesson, index) => {
+                let lessonPayload;
+                if (lesson.selectedFile) {
+                    lessonPayload = {
+                        title: lesson.title,
+                        courseId: createdCourse.id,
+                        videoLink: "SELF_HOSTED",
+                        videoType: "SELF_HOSTED",
+                        videoNumber: index + 1
+                    };
+                } else if (lesson.videoURL) {
+                    lessonPayload = {
+                        title: lesson.title,
+                        courseId: createdCourse.id,
+                        videoLink: lesson.videoURL,
+                        videoType: "YOUTUBE",
+                        videoNumber: index + 1
+                    };
+                }
+
+                return await LessonService.createLesson(lessonPayload);
             });
             const createdLessons = await Promise.all(lessonPromises);
 
-            //Upload lesson videos
-            const uploadPromises = createdLessons.map((lesson, index) => {
-                const fileName = `c${createdCourse.id}.l${lesson.id}.mp4`;
-                return videoService.uploadVideo(lessons[index].selectedFile, fileName);
-            });
-            await Promise.all(uploadPromises);
+            if (lessons.some(lesson => lesson.selectedFile)) {
+                const uploadPromises = createdLessons.map((lesson, index) => {
+                    const fileName = `c${createdCourse.id}.l${lesson.id}.mp4`;
+                    return videoService.uploadVideo(lessons[index].selectedFile, fileName);
+                });
+                await Promise.all(uploadPromises);
+            }
 
             setUploading(false);
             setShowUploadSuccess(true);
@@ -110,6 +121,7 @@ export default function CreateNewCourse() {
             setUploading(false);
         }
     };
+
 
 
     return (
