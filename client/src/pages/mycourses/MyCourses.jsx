@@ -14,7 +14,7 @@ export default function MyCourses() {
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
       try {
-        const coursesData = await CourseService.getEnrolledCourses(userId);
+        const coursesData = await CourseService.getEnrolledCourses(1); //hardwired for demo
         console.log(coursesData);
         setCourses(coursesData);
       } catch (error) {
