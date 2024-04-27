@@ -1,7 +1,7 @@
 import './LoginSignup.css';
 import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import user_icon from '../../assets/person.png';
 import email_icon from '../../assets/email.png';
 import password_icon from '../../assets/password.png';
@@ -38,7 +38,6 @@ const LoginSignup = () => {
       if (action === "Login") {
         const user = await UserService.loginUser(username, password);
         console.log('Logged in user:', user);
-
         login(user.id);
       } else {
         const newUser = await UserService.signupUser(username, password);
@@ -47,7 +46,11 @@ const LoginSignup = () => {
       }
       navigate('/');
     } catch (error) {
-      console.error('ERROR: Error logging in');
+      console.error('ERROR: Error logging in', error);
+      toast.error("Username already exists. Please choose a different username.");
+      setUsername("");
+      setEmail("");
+      setPassword("");
     }
   };
 
