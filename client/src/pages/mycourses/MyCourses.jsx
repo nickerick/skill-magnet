@@ -38,7 +38,7 @@ export default function MyCourses() {
               imageUrl={`/images/courses/${c.enrolledCourse.id}/courseThumbnail.png`}
               description={c.enrolledCourse.description}
               progress={c.progress}
-              handleClick={() => navigate(`/courseviewer/${c.id}`)}
+              handleClick={() => navigate(`/courseviewer/${c.enrolledCourse.id}`)}
             />
           ))}
         </div>

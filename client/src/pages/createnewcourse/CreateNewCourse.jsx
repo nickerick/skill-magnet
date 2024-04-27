@@ -28,15 +28,19 @@ export default function CreateNewCourse() {
     });
 
     const [lessons, setLessons] = useState([{ id: 0, title: '', selectedFile: null, videoLink: '' }]);
+    const [lessonIdCounter, setLessonIdCounter] = useState(0);
 
     const addLesson = () => {
-        const newId = lessons.length;
+        const newId = lessonIdCounter + 1;
+        setLessonIdCounter(newId);
         setLessons([...lessons, {
             id: newId,
             title: '',
             selectedFile: null,
-            videoLink: '' }]);
+            videoLink: ''
+        }]);
     };
+
 
     const handleLessonInfoChange = (lessonId, lessonInfo) => {
         setLessons(prevLessons => {
