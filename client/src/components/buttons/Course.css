@@ -4,9 +4,9 @@
     background: #181d31;
     border-radius: 40px;
     padding: 30px;
-    display: flex; /* Add display flex */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
