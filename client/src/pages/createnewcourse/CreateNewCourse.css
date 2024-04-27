@@ -25,6 +25,23 @@
     border-radius: 8px;
 }
 
+.upload-success-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ADD8E6;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+}
+
+.upload-success-popup.show-popup {
+    display: block;
+}
+
 
 .create-course-button {
     padding: 10px 20px; 

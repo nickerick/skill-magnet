@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from "../../components/Header";
 import BasicCourseInformation from "../../components/courseinformation/BasicCourseInformation";
 import BasicLessonInformation from "../../components/courseinformation/BasicLessonInformation";
@@ -10,6 +10,15 @@ import LessonService from '../../services/LessonService.js';
 
 export default function CreateNewCourse() {
     const [uploading, setUploading] = useState(false);
+    const [showUploadSuccess, setShowUploadSuccess] = useState(false);
+
+    useEffect(() => {
+        if (showUploadSuccess) {
+            setTimeout(() => {
+                setShowUploadSuccess(false);
+            }, 1500);
+        }
+    }, [showUploadSuccess]);
 
     const [courseInfo, setCourseInfo] = useState({
         lessons: [],
@@ -89,8 +98,12 @@ export default function CreateNewCourse() {
             await Promise.all(uploadPromises);
 
             setUploading(false);
+            setShowUploadSuccess(true);
             console.log("Course creation successful!");
-            window.location.reload();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
 
         } catch (error) {
             console.error("Error creating course or lessons:", error);
@@ -106,6 +119,12 @@ export default function CreateNewCourse() {
                   <h2>Uploading Course...</h2>
               </div>
           </div>
+
+          {showUploadSuccess && (
+            <div className="upload-success-popup show-popup">
+                <h2>Uploaded Successfully</h2>
+            </div>
+          )}
 
 
           <div className="create-course">
